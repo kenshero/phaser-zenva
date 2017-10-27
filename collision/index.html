@@ -60,6 +60,13 @@
       isMoving: false
     }
 
+    var goal = {
+      x: 480,
+      y: 200,
+      w: 40,
+      h: 40
+    }
+
     var canvas = document.getElementById('myCanvas')
     var ctx = canvas.getContext("2d")
 
@@ -77,6 +84,11 @@
     canvas.addEventListener('touchend', stopPlayer)
 
     var update = function() {
+
+      if(checkCollision(player, goal)){
+        gameLive = false
+        alert("Game Won")
+      }
 
       if(player.isMoving){
         player.x += player.speedX
@@ -104,6 +116,7 @@
 
       ctx.fillStyle = "rgb(50, 0, 50)"
       ctx.fillRect(player.x, player.y, player.w, player.h)
+      ctx.fillRect(goal.x, goal.y, goal.w, goal.h)
 
       enemies.forEach(function(item, index){
         ctx.fillStyle = "rgb(200, 0, 100)"
