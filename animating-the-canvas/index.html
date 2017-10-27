@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <h1> Animated Canvas</h1>
+  <canvas id="myCanvas" width="500" height="300"></canvas>
+  <script type="text/javascript">
+    var x = 10
+    var y = 10
+    var w = 20
+    var h = 30
+
+    var speed = 2
+
+    var canvas = document.getElementById('myCanvas')
+    var ctx = canvas.getContext("2d")
+
+    var update = function() {
+      x = x + speed
+    }
+
+    var draw = function() {
+      ctx.clearRect(0, 0, 500, 300)
+      ctx.fillStyle = "rgb(200, 0, 100)";
+      ctx.fillRect(x, y, w, h)
+    }
+
+    var step = function() {
+      update()
+      draw()
+      window.requestAnimationFrame(step)
+    };
+
+    step()
+
+  </script>
+</body>
+</html>

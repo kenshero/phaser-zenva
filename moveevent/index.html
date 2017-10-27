@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title></title>
+</head>
+<body>
+  <h1> Animated Canvas</h1>
+  <canvas id="myCanvas" width="500" height="300"></canvas>
+  <style type="text/css">
+    body {
+      background-color: #ddd;
+    }
+    #myCanvas {
+      border: 1px solid #000;
+    }
+  </style>
+  <script type="text/javascript">
+
+    var GAME_WIDTH = 640
+    var GAME_HEIGHT = 360
+
+    var enemies = [{
+      x: 100,
+      y: 100,
+      speedY: 1,
+      w: 40,
+      h: 40
+    },{
+      x: 200,
+      y: 100,
+      speedY: 2,
+      w: 40,
+      h: 40
+    },{
+      x: 300,
+      y: 100,
+      speedY: 3,
+      w: 40,
+      h: 40
+    },{
+      x: 400,
+      y: 100,
+      speedY: 4,
+      w: 40,
+      h: 40
+    }]
+    var x = 10
+    var y = 10
+    var w = 20
+    var h = 30
+
+    var player = {
+      x: 0,
+      y: 200,
+      speedX: 4,
+      w: 40,
+      h: 40,
+      isMoving: false
+    }
+
+    var canvas = document.getElementById('myCanvas')
+    var ctx = canvas.getContext("2d")
+
+    var movePlayer = function() {
+      player.isMoving = true
+    }
+
+    var stopPlayer = function() {
+      player.isMoving = false
+    }
+
+    canvas.addEventListener('mousedown', movePlayer)
+    canvas.addEventListener('mouseup', stopPlayer)
+    canvas.addEventListener('touchstart', movePlayer)
+    canvas.addEventListener('touchend', stopPlayer)
+
+    var update = function() {
+
+      if(player.isMoving){
+        player.x += player.speedX
+      }
+
+      enemies.forEach(function(item, index){
+        if(item.y <= 10) {
+          item.speedY *= -1
+        }
+        else if(item.y >= 260) {
+          item.speedY *= -1
+        }
+        item.y += item.speedY
+      })
+    }
+
+    var draw = function() {
+      ctx.clearRect(0, 0, 500, 300)
+
+      ctx.fillStyle = "rgb(50, 0, 50)"
+      ctx.fillRect(player.x, player.y, player.w, player.h)
+
+      enemies.forEach(function(item, index){
+        ctx.fillStyle = "rgb(200, 0, 100)"
+        ctx.fillRect(item.x, item.y, item.w, item.h)
+      })
+    }
+
+    var step = function() {
+      update()
+      draw()
+      window.requestAnimationFrame(step)
+    };
+
+    step()
+
+  </script>
+</body>
+</html>
