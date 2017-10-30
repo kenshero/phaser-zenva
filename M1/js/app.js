@@ -1,20 +1,29 @@
+//this game will have only 1 state
 var GameState = {
-  preload: function(){
-    this.load.image('background', 'assets/images/background.png')
-    this.load.image('chicken', 'assets/images/chicken.png')
-    this.load.image('horse', 'assets/images/horse.png')
-    this.load.image('pig', 'assets/images/pig.png')
-    this.load.image('sheep', 'assets/images/sheep.png')
-    this.load.image('arrow', 'assets/images/arrow.png')
-  },
-  create: function(){
-    this.background = this.game.add.sprite(0, 0, 'background')
+  //load the game assets before the game starts
+  preload: function() {
+    this.game.load.image('background', 'assets/images/background.png');
+    this.game.load.image('arrow', 'assets/images/arrow.png');
+    this.game.load.image('chicken', 'assets/images/chicken.png');
+    this.game.load.image('horse', 'assets/images/horse.png');
+    this.game.load.image('pig', 'assets/images/pig.png');
+    this.game.load.image('sheep', 'assets/images/sheep3.png');
 
+  },
+  //executed after everything is loaded
+  create: function() {
+
+    //scaling options
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
+    //have the game centered horizontally
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
 
+    //create a sprite for the background
+    this.background = this.game.add.sprite(0, 0, 'background')
+
+    //group for animals
     var animalData = [
       {key: 'chicken', text: 'CHICKEN'},
       {key: 'horse', text: 'HORSE'},
@@ -27,12 +36,26 @@ var GameState = {
     var self = this;
 
     animalData.forEach(function(element){
-      self.animals.create(200, self.game.world.centerY, element.key);
+      animal = self.animals.create(-1000, self.game.world.centerY, element.key, 0);
+
+      animal.customParams = {text: element.text}
+      animal.anchor.setTo(0.5)
+
+      animal.inputEnabled = true
+      animal.input.pixelPerfectClick = true
+      animal.events.onInputDown.add(self.animateAnimal, self)
+
     });
+
+    this.currentAnimal = this.animals.next();
+    this.currentAnimal.position.set(this.game.world.centerX, this.game.world.centerY);
 
     this.rightArrow = this.game.add.sprite(580, this.game.world.centerY, 'arrow')
     this.rightArrow.anchor.setTo(0.5)
-    this.rightArrow.customParams = {direction: 1}
+    this.rightArrow.customParams = {direction: 0}
+    this.rightArrow.inputEnabled = true
+    this.rightArrow.input.pixelPerfectClick = true
+    this.rightArrow.events.onInputDown.add(this.switchAnimal, this)
 
     this.leftArrow = this.game.add.sprite(60, this.game.world.centerY, 'arrow')
     this.leftArrow.anchor.setTo(0.5)
@@ -46,7 +69,17 @@ var GameState = {
 
   },
   switchAnimal: function(sprite, event){
-    console.log("move Animal");
+    var newAnimal, endX
+    if(sprite.customParams.direction > 0 ) {
+      newAnimal =  this.animals.next()
+      endX = 640 + this.currentAnimal.width / 2
+    } else {
+      newAnimal =  this.animals.previous()
+      endX = -this.currentAnimal.width / 2
+    }
+    this.currentAnimal.x = endX
+    newAnimal.x = this.game.world.centerX
+    this.currentAnimal = newAnimal
   },
   animateAnimal: function(sprite, event){
     console.log("animate Animal");
