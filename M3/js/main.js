@@ -48,15 +48,33 @@ var GameState = {
     this.rotate.inputEnabled = true
     this.rotate.events.onInputDown.add(this.rotatePet, this)
 
-    this.buttons = [this.apple, this.candy, this.toy, this.rotate]
+    this.buttons = [this.apple, this.candy, this.rubber_duck, this.rotate]
     this.selectedItem = null
+
+    this.uiBlocked = false
 
   },
   pickItem: function(sprite, events){
-    console.log("pick items");
+    if(!this.uiBlocked){
+      console.log("pick items")
+      this.clearSelection()
+      sprite.alpha = 0.4
+      this.selectedItem = sprite
+    }
   },
   rotatePet: function(sprite, events){
-    console.log("rotate pet");
+    if(!this.uiBlocked){
+      console.log("rotate pet")
+      this.uiBlocked = true
+      this.clearSelection()
+      sprite.alpha = 0.4
+    }
+  },
+  clearSelection: function(){
+    this.buttons.forEach(function(element, index){
+      element.alpha = 1
+    })
+    this.selectedItem = null
   }
 }
 
