@@ -61,6 +61,8 @@ var GameState = {
     this.currentAnimal = this.animals.next();
     this.currentAnimal.position.set(this.game.world.centerX, this.game.world.centerY);
 
+    this.showText(this.currentAnimal)
+
     this.rightArrow = this.game.add.sprite(580, this.game.world.centerY, 'arrow')
     this.rightArrow.anchor.setTo(0.5)
     this.rightArrow.customParams = {direction: 0}
@@ -84,6 +86,8 @@ var GameState = {
       return false
     }
     this.isMoving = true
+    this.animalText.visible = false
+
     var newAnimal, endX
     if(sprite.customParams.direction > 0 ) {
       newAnimal =  this.animals.next()
@@ -98,6 +102,7 @@ var GameState = {
     newAnimalMovement.to({ x: this.game.world.centerX }, 1000)
     newAnimalMovement.onComplete.add(function(){
       this.isMoving = false
+      this.showText(this.currentAnimal)
     }, this)
     newAnimalMovement.start()
 
@@ -110,6 +115,18 @@ var GameState = {
   animateAnimal: function(sprite, event){
     sprite.play('animate')
     sprite.customParams.sound.play();
+  },
+  showText: function(animal){
+    if(!this.animalText) {
+      var style = {
+        font: 'bold 30pt Arial',
+        fill: '#D0171B'
+      }
+      this.animalText = this.game.add.text(this.game.width / 2, this.game.height * 0.85, '', style)
+      this.animalText.anchor.setTo(0.5)
+    }
+    this.animalText.setText(animal.customParams.text)
+    this.animalText.visible = true
   }
 }
 
