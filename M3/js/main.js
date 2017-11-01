@@ -68,6 +68,15 @@ var GameState = {
       this.uiBlocked = true
       this.clearSelection()
       sprite.alpha = 0.4
+
+      var perRotation = this.game.add.tween(this.pet)
+      perRotation.to({angle: '+720'}, 1000)
+      perRotation.onComplete.add(function(){
+        this.uiBlocked = false
+        sprite.alpha = 1
+        this.pet.customParams.fun += 10
+      }, this)
+      perRotation.start()
     }
   },
   clearSelection: function(){
