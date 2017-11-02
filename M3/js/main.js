@@ -22,6 +22,8 @@ var GameState = {
     this.pet = this.game.add.sprite(100, 400, 'pet')
     this.pet.anchor.setTo(0.5)
 
+    this.pet.animations.add('funnyfaces', [1, 2, 3, 2, 1], 7, false)
+
     this.pet.customParams = {health: 100, fun: 100}
 
     this.pet.inputEnabled = true
@@ -95,6 +97,23 @@ var GameState = {
       var newItem = this.game.add.sprite(x, y, this.selectedItem.key)
       newItem.anchor.setTo(0.5)
       newItem.customParams = this.selectedItem.customParams
+
+      this.uiBlocked = true
+      var petMovement = this.game.add.tween(this.pet)
+      petMovement.to({x: x, y: y})
+      petMovement.onComplete.add(function(){
+        newItem.destroy()
+        this.pet.animations.play('funnyfaces')
+        this.uiBlocked = false
+        var stat
+        for(stat in newItem.customParams){
+          if(newItem.customParams.hasOwnProperty(stat)){
+            this.pet.customParams[stat] += newItem.customParams[stat]
+          }
+        }
+
+      }, this)
+      petMovement.start()
     }
   }
 }
