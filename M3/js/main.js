@@ -16,6 +16,8 @@ var GameState = {
   },
   create: function(){
     this.background = this.game.add.sprite(0, 0, 'backyard')
+    this.background.inputEnabled = true
+    this.background.events.onInputDown.add(this.placeItem, this)
 
     this.pet = this.game.add.sprite(100, 400, 'pet')
     this.pet.anchor.setTo(0.5)
@@ -84,6 +86,16 @@ var GameState = {
       element.alpha = 1
     })
     this.selectedItem = null
+  },
+  placeItem: function(sprite, event){
+    if(this.selectedItem && !this.uiBlocked){
+      var x = event.position.x
+      var y = event.position.y
+
+      var newItem = this.game.add.sprite(x, y, this.selectedItem.key)
+      newItem.anchor.setTo(0.5)
+      newItem.customParams = this.selectedItem.customParams
+    }
   }
 }
 
