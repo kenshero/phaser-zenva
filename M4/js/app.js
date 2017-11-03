@@ -5,7 +5,7 @@ var GameState = {
     this.scale.pageAlignVertically = true
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.physics.arcade.gravity.y = 100
+    this.game.physics.arcade.gravity.y = 1000
   },
   preload: function() {
     this.load.image('ground', 'assets/images/ground.png')
@@ -32,12 +32,26 @@ var GameState = {
     this.player = this.add.sprite(100, 200, 'player', 3)
     this.player.anchor.setTo(0.5)
     this.player.animations.add('walking', [0, 1, 2, 1], 6, true)
-    this.player.play('walking')
     this.game.physics.arcade.enable(this.player)
+
+    this.cursors = this.game.input.keyboard.createCursorKeys()
+    this.RUNNING_SPEED = 180
+    this.JUMPING_SPEED = 550
   },
   update: function() {
     this.game.physics.arcade.collide(this.player, this.ground, this.landed)
     this.game.physics.arcade.collide(this.player, this.platform, this.landed)
+
+    this.player.body.velocity.x = 0
+    if(this.cursors.left.isDown) {
+      this.player.body.velocity.x = -this.RUNNING_SPEED
+    } else if(this.cursors.right.isDown) {
+      this.player.body.velocity.x = this.RUNNING_SPEED
+    }
+
+    if(this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.body.velocity.y = -this.JUMPING_SPEED
+    }
   },
   landed: function(){
     // console.log("landed");
