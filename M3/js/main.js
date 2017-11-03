@@ -57,6 +57,13 @@ var GameState = {
 
     this.uiBlocked = false
 
+    var style = {font: '20px Arial', fill: '#fff'}
+    this.game.add.text(10, 20, 'Health:', style)
+    this.game.add.text(140, 20, 'Fun:', style)
+    this.healthText = this.game.add.text(80, 20, '', style)
+    this.funText = this.game.add.text(185, 20, '', style)
+    this.refreshStats()
+
   },
   pickItem: function(sprite, events){
     if(!this.uiBlocked){
@@ -79,6 +86,7 @@ var GameState = {
         this.uiBlocked = false
         sprite.alpha = 1
         this.pet.customParams.fun += 10
+        this.refreshStats()
       }, this)
       perRotation.start()
     }
@@ -111,10 +119,14 @@ var GameState = {
             this.pet.customParams[stat] += newItem.customParams[stat]
           }
         }
-
+        this.refreshStats()
       }, this)
       petMovement.start()
     }
+  },
+  refreshStats: function() {
+    this.healthText.text = this.pet.customParams.health
+    this.funText.text = this.pet.customParams.fun
   }
 }
 
