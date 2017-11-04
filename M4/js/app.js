@@ -6,6 +6,8 @@ var GameState = {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.physics.arcade.gravity.y = 1000
+    this.RUNNING_SPEED = 180
+    this.JUMPING_SPEED = 550
   },
   preload: function() {
     this.load.image('ground', 'assets/images/ground.png')
@@ -35,26 +37,62 @@ var GameState = {
     this.game.physics.arcade.enable(this.player)
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
-    this.RUNNING_SPEED = 180
-    this.JUMPING_SPEED = 550
+    this.player.customParams = {}
+
+    this.createOnscreenControls()
   },
   update: function() {
     this.game.physics.arcade.collide(this.player, this.ground, this.landed)
     this.game.physics.arcade.collide(this.player, this.platform, this.landed)
 
     this.player.body.velocity.x = 0
-    if(this.cursors.left.isDown) {
+    if(this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED
-    } else if(this.cursors.right.isDown) {
+    } else if(this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED
     }
 
-    if(this.cursors.up.isDown && this.player.body.touching.down) {
+    if((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED
+      this.player.customParams.mustJump = false
     }
   },
   landed: function(){
     // console.log("landed");
+  },
+  createOnscreenControls: function(){
+    this.leftArrow = this.add.button(20, 535, 'arrowButton')
+    this.rightArrow = this.add.button(110, 535, 'arrowButton')
+    this.actionButton = this.add.button(280, 535, 'actionButton')
+
+    this.leftArrow.alpha = 0.5
+    this.rightArrow.alpha = 0.5
+    this.actionButton.alpha = 0.5
+
+    this.actionButton.events.onInputDown.add(function(){
+      this.player.customParams.mustJump = true
+    }, this)
+
+    this.actionButton.events.onInputUp.add(function(){
+      this.player.customParams.mustJump = false
+    }, this)
+
+    this.leftArrow.events.onInputDown.add(function(){
+      this.player.customParams.isMovingLeft = true
+    }, this)
+
+    this.leftArrow.events.onInputUp.add(function(){
+      this.player.customParams.isMovingLeft = false
+    }, this)
+
+    this.rightArrow.events.onInputDown.add(function(){
+      this.player.customParams.isMovingRight = true
+    }, this)
+
+    this.rightArrow.events.onInputUp.add(function(){
+      this.player.customParams.isMovingRight = false
+    }, this)
+
   }
 }
 
