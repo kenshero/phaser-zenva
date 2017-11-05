@@ -6,6 +6,9 @@ var GameState = {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.physics.arcade.gravity.y = 1000
+
+    this.game.world.setBounds(0, 0, 360, 700)
+
     this.RUNNING_SPEED = 180
     this.JUMPING_SPEED = 550
   },
@@ -19,9 +22,11 @@ var GameState = {
 
     this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 28, 30, 5, 1, 1)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1)
+
+    this.load.text('level', 'assets/data/data.json')
   },
   create: function() {
-    this.ground = this.add.sprite(0, 500, 'ground')
+    this.ground = this.add.sprite(0, 638, 'ground')
     this.game.physics.arcade.enable(this.ground)
     this.ground.body.allowGravity = false
     this.ground.body.immovable = true
@@ -31,7 +36,11 @@ var GameState = {
     // this.platform.body.allowGravity = false
     // this.platform.body.immovable = true
 
-    this.player = this.add.sprite(100, 200, 'player', 3)
+    this.levelData = JSON.parse(this.game.cache.getText('level'))
+
+    console.log("this.levelData:", this.levelData);
+
+    this.player = this.add.sprite(this.levelData.playerStart.x, this.levelData.playerStart.y, 'player', 3)
     this.player.anchor.setTo(0.5)
     this.player.animations.add('walking', [0, 1, 2, 1], 6, true)
     this.game.physics.arcade.enable(this.player)
@@ -46,7 +55,7 @@ var GameState = {
     this.platforms = this.add.group()
     this.platforms.enableBody = true
 
-    platformData.forEach(function(element){
+    this.levelData.platformData.forEach(function(element){
       this.platforms.create(element.x, element.y, 'platform')
     }, this)
 
@@ -55,6 +64,8 @@ var GameState = {
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.player.customParams = {}
+
+    this.game.camera.follow(this.player)
 
     this.createOnscreenControls()
   },
@@ -85,6 +96,10 @@ var GameState = {
     this.leftArrow.alpha = 0.5
     this.rightArrow.alpha = 0.5
     this.actionButton.alpha = 0.5
+
+    this.leftArrow.fixedToCamera = 0.5
+    this.rightArrow.fixedToCamera = 0.5
+    this.actionButton.fixedToCamera = 0.5
 
     this.actionButton.events.onInputDown.add(function(){
       this.player.customParams.mustJump = true
