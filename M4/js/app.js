@@ -106,6 +106,11 @@ var GameState = {
       this.player.body.velocity.y = -this.JUMPING_SPEED
       this.player.customParams.mustJump = false
     }
+
+    this.barrels.forEach(function(element){
+      if(element.x < 10 && element.y > 600)
+      element.kill()
+    }, this)
   },
   landed: function(){
     // console.log("landed");
@@ -147,10 +152,6 @@ var GameState = {
       this.player.customParams.isMovingRight = false
     }, this)
 
-    this.barrels.forEach(function(element){
-      if(element.x < 10 && element.y > 600)
-      element.kill()
-    }, this)
   },
   killPlayer: function(player, fire){
     console.log("Kill Player Restart Game")

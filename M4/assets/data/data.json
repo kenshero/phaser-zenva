@@ -15,5 +15,5 @@
   ],
   "goal": {"x": 20, "y": 90},
   "barrelFreq": 5,
-  "barrelSpeed": 50
+  "barrelSpeed": 150
 }
