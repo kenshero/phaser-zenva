@@ -57,6 +57,11 @@ var GameState = {
     this.fires = this.add.group()
     this.fires.enableBody = true
 
+    this.barrels = this.add.group()
+    this.barrels.enableBody = true
+    this.createBarrel()
+    this.barrelCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.levelData.barrelFreq, this.createBarrel, this)
+
     var fire;
     this.levelData.fireData.forEach(function(element){
       fire = this.fires.create(element.x, element.y, 'fire')
@@ -75,6 +80,9 @@ var GameState = {
   update: function() {
     this.game.physics.arcade.collide(this.player, this.ground, this.landed)
     this.game.physics.arcade.collide(this.player, this.platforms, this.landed)
+
+    this.game.physics.arcade.collide(this.barrels, this.ground, this.landed)
+    this.game.physics.arcade.collide(this.barrels, this.platforms, this.landed)
 
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer)
     this.game.physics.arcade.overlap(this.player, this.goal, this.win)
@@ -139,6 +147,10 @@ var GameState = {
       this.player.customParams.isMovingRight = false
     }, this)
 
+    this.barrels.forEach(function(element){
+      if(element.x < 10 && element.y > 600)
+      element.kill()
+    }, this)
   },
   killPlayer: function(player, fire){
     console.log("Kill Player Restart Game")
@@ -148,6 +160,18 @@ var GameState = {
     console.log("you win")
     alert("win!")
     game.state.start('GameState')
+  },
+  createBarrel: function() {
+    var barrel = this.barrels.getFirstExists(false)
+    if(!barrel) {
+      barrel = this.barrels.create(0, 0, 'barrel')
+    }
+
+    barrel.body.collideWorldBounds = true
+    barrel.body.bounce.set(1, 0)
+
+    barrel.reset(this.levelData.goal.x, this.levelData.goal.y)
+    barrel.body.velocity.x = this.levelData.barrelSpeed
   }
 }
 
