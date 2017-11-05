@@ -15,7 +15,7 @@ var GameState = {
   preload: function() {
     this.load.image('ground', 'assets/images/ground.png')
     this.load.image('platform', 'assets/images/platform.png')
-    this.load.image('goal', 'assets/images/goal.png')
+    this.load.image('goal', 'assets/images/gorilla3.png')
     this.load.image('arrowButton', 'assets/images/arrowButton.png')
     this.load.image('actionButton', 'assets/images/actionButton.png')
     this.load.image('barrel', 'assets/images/barrel.png')
@@ -30,12 +30,6 @@ var GameState = {
     this.game.physics.arcade.enable(this.ground)
     this.ground.body.allowGravity = false
     this.ground.body.immovable = true
-
-    // this.platform = this.add.sprite(0, 300, 'platform')
-    // this.game.physics.arcade.enable(this.platform)
-    // this.platform.body.allowGravity = false
-    // this.platform.body.immovable = true
-
     this.levelData = JSON.parse(this.game.cache.getText('level'))
 
     console.log("this.levelData:", this.levelData);
@@ -45,15 +39,13 @@ var GameState = {
     this.player.animations.add('walking', [0, 1, 2, 1], 6, true)
     this.game.physics.arcade.enable(this.player)
 
-    var platformData = [
-      {"x": 0, "y": 430},
-      {"x": 45, "y": 560},
-      {"x": 90, "y": 290},
-      {"x": 0, "y": 140}
-    ]
-
     this.platforms = this.add.group()
     this.platforms.enableBody = true
+
+    //goal
+    this.goal = this.add.sprite(this.levelData.goal.x, this.levelData.goal.y, 'goal')
+    this.game.physics.arcade.enable(this.goal)
+    this.goal.body.allowGravity = false
 
     this.levelData.platformData.forEach(function(element){
       this.platforms.create(element.x, element.y, 'platform')
@@ -61,6 +53,17 @@ var GameState = {
 
     this.platforms.setAll('body.immovable', true)
     this.platforms.setAll('body.allowGravity', false)
+
+    this.fires = this.add.group()
+    this.fires.enableBody = true
+
+    var fire;
+    this.levelData.fireData.forEach(function(element){
+      fire = this.fires.create(element.x, element.y, 'fire')
+      fire.animations.add('fire', [0, 1], 4, true)
+      fire.play('fire')
+    }, this)
+    this.fires.setAll('body.allowGravity', false)
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.player.customParams = {}
@@ -73,11 +76,22 @@ var GameState = {
     this.game.physics.arcade.collide(this.player, this.ground, this.landed)
     this.game.physics.arcade.collide(this.player, this.platforms, this.landed)
 
+    this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer)
+    this.game.physics.arcade.overlap(this.player, this.goal, this.win)
+
     this.player.body.velocity.x = 0
     if(this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED
+      this.player.scale.setTo(1, 1)
+      this.player.play('walking')
     } else if(this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED
+      this.player.scale.setTo(-1, 1)
+      this.player.play('walking')
+
+    } else {
+      this.player.animations.stop()
+      this.player.frame = 3
     }
 
     if((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
@@ -125,6 +139,15 @@ var GameState = {
       this.player.customParams.isMovingRight = false
     }, this)
 
+  },
+  killPlayer: function(player, fire){
+    console.log("Kill Player Restart Game")
+    game.state.start('GameState')
+  },
+  win: function(player, goal){
+    console.log("you win")
+    alert("win!")
+    game.state.start('GameState')
   }
 }
 
