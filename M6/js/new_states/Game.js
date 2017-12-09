@@ -23,8 +23,10 @@ MrHop.GameState = {
     this.player.body.setSize(38, 60, 0, 0)
     this.player.play('running')
 
-    this.platform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200, -this.levelSpeed)
-    this.platformPool.add(this.platform)
+    this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200, -this.levelSpeed)
+    this.platformPool.add(this.currentPlatform)
+
+    this.loadLevel()
   },
   update: function() {
 
@@ -43,6 +45,10 @@ MrHop.GameState = {
     } else if(this.cursors.up.isUp || this.game.input.activePointer.isUp) {
       this.isJumping = false
     }
+
+    if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length - 1].right < this.game.world.width) {
+      this.createPlatform()
+    }
   },
   playerJump: function() {
     if(this.player.body.touching.down) {
@@ -59,6 +65,65 @@ MrHop.GameState = {
       } else {
         this.jumpPeaked = true
       }
+    }
+  },
+  loadLevel: function() {
+    this.levelData = {
+      platforms: [
+        {
+          separation: 50,
+          y: 200,
+          numTiles: 4
+        },
+        {
+          separation: 50,
+          y: 250,
+          numTiles: 6
+        },
+        {
+          separation: 100,
+          y: 200,
+          numTiles: 3
+        },
+        {
+          separation: 50,
+          y: 250,
+          numTiles: 8
+        },
+        {
+          separation: 100,
+          y: 200,
+          numTiles: 10
+        },
+        {
+          separation: 100,
+          y: 300,
+          numTiles: 4
+        },
+        {
+          separation: 50,
+          y: 200,
+          numTiles: 4
+        }
+      ]
+    }
+    this.currIndex = 0
+    this.createPlatform()
+  },
+  createPlatform: function() {
+    var nextPlatformData = this.levelData.platforms[this.currIndex]
+    if(nextPlatformData) {
+      this.currentPlatform = new MrHop.Platform(
+        this.game,
+        this.floorPool,
+        nextPlatformData.numTiles,
+        this.game.world.width + nextPlatformData.separation,
+        nextPlatformData.y,
+        -this.levelSpeed
+      )
+
+      this.platformPool.add(this.currentPlatform)
+      this.currIndex++
     }
   }
   // render: function() {
