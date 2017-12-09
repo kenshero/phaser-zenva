@@ -29,6 +29,6 @@ MrHop.Platform.prototype.prepare = function(numTiles, x, y) {
     i++
   }
 
-  this.setAll('body.immoveable', true)
-  this.setAll('body.allowGravity', false)
+  this.setAll('body.immovable', true);
+  this.setAll('body.allowGravity', false);
 }
