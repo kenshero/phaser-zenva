@@ -16,6 +16,7 @@ MrHop.Platform.prototype = Object.create(Phaser.Group.prototype);
 MrHop.Platform.prototype.constructor = MrHop.Platform
 
 MrHop.Platform.prototype.prepare = function(numTiles, x, y) {
+  this.alive = true
   var i = 0
   while(i < numTiles){
     var floorTile = this.floorPool.getFirstExists(false)
