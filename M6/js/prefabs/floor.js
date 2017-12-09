@@ -1,6 +1,6 @@
 var MrHop = MrHop || {}
 
-MrHop.Platform = function(game, floorPool, numTiles, x, y) {
+MrHop.Platform = function(game, floorPool, numTiles, x, y, speed) {
   Phaser.Group.call(this, game)
 
   this.tileSize = 40
@@ -8,14 +8,14 @@ MrHop.Platform = function(game, floorPool, numTiles, x, y) {
   this.enableBody = true
   this.floorPool = floorPool
 
-  this.prepare(numTiles, x, y)
+  this.prepare(numTiles, x, y, speed)
 
 }
 
 MrHop.Platform.prototype = Object.create(Phaser.Group.prototype);
 MrHop.Platform.prototype.constructor = MrHop.Platform
 
-MrHop.Platform.prototype.prepare = function(numTiles, x, y) {
+MrHop.Platform.prototype.prepare = function(numTiles, x, y, speed) {
   this.alive = true
   var i = 0
   while(i < numTiles){
@@ -30,6 +30,7 @@ MrHop.Platform.prototype.prepare = function(numTiles, x, y) {
     i++
   }
 
-  this.setAll('body.immovable', true);
-  this.setAll('body.allowGravity', false);
+  this.setAll('body.immovable', true)
+  this.setAll('body.allowGravity', false)
+  this.setAll('body.velocity.x', speed)
 }

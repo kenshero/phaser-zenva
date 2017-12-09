@@ -11,6 +11,8 @@ MrHop.GameState = {
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.myCoins = 0
+
+    this.levelSpeed = 200
   },
   create: function() {
     this.player = this.add.sprite(50, 50, 'player')
@@ -21,7 +23,7 @@ MrHop.GameState = {
     this.player.body.setSize(38, 60, 0, 0)
     this.player.play('running')
 
-    this.platform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200)
+    this.platform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200, -this.levelSpeed)
     this.platformPool.add(this.platform)
   },
   update: function() {
@@ -29,6 +31,12 @@ MrHop.GameState = {
     this.platformPool.forEachAlive(function(platform, index){
       this.game.physics.arcade.collide(this.player, platform)
     }, this)
+
+    if(this.player.body.touching.down){
+      this.player.body.velocity.x = this.levelSpeed
+    } else {
+      this.player.body.velocity.x = 0
+    }
 
     if(this.cursors.up.isDown || this.game.input.activePointer.isDown) {
       this.playerJump()
