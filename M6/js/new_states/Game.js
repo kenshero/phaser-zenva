@@ -39,6 +39,9 @@ MrHop.GameState = {
 
     this.water = this.add.tileSprite(0, this.game.world.height - 30, this.game.world.width, 30, 'water')
     this.water.autoScroll(-this.levelSpeed/2, 0)
+
+    var style = {font: '30px Arial', fill: '#fff'}
+    this.coinsCountLabel = this.add.text(10, 20, '0', style)
   },
   update: function() {
     // this.coinsPool.forEachAlive(function(coin){
@@ -149,15 +152,56 @@ MrHop.GameState = {
     coin.kill()
     this.myCoins++
     this.coinSound.play()
+    this.coinsCountLabel.text = this.myCoins
   },
   gameOver: function() {
     this.player.kill()
-    this.restart()
+    this.updateHighScore()
+
+    this.overlay = this.add.bitmapData(this.game.width, this.game.height)
+    this.overlay.ctx.fillStyle = '#000'
+    this.overlay.ctx.fillRect(0, 0, this.game.width, this.game.height)
+
+
+    this.panel = this.add.sprite(0, 0, this.overlay)
+    this.panel.alpha = 0.55
+
+    var gameOverPanel = this.add.tween(this.panel)
+    gameOverPanel.to({y: 0}, 500)
+
+    gameOverPanel.onComplete.add(function(){
+      this.water.stopScroll()
+      this.background.stopScroll()
+
+      var style = {font: '30px Arial', fill: '#fff'}
+      this.add.text(this.game.width/2 , this.game.height/2, 'Game Over', style).anchor.setTo(0.5)
+
+      style = {font: '20px Arial', fill: '#fff'}
+      this.add.text(this.game.width/2 , this.game.height/2 + 50, 'High Score' + this.highScore, style).anchor.setTo(0.5)
+
+      this.add.text(this.game.width/2 , this.game.height/2 + 80, 'Your Score' + this.myCoins, style).anchor.setTo(0.5)
+
+      style = {font: '10px Arial', fill: '#fff'}
+      this.add.text(this.game.width/2 , this.game.height/2 + 120, 'Play Again', style).anchor.setTo(0.5)
+
+      this.game.input.onDown.addOnce(this.restart, this)
+
+    }, this)
+
+    gameOverPanel.start()
   },
   restart: function() {
     this.game.world.remove(this.background)
     this.game.world.remove(this.water)
     this.game.state.restart()
+  },
+  updateHighScore: function() {
+    this.highScore = +localStorage.getItem('highScore')
+
+    if(this.highScore < this.myCoins){
+      this.highScore = this.myCoins
+      localStorage.setItem('highScore', this.highScore)
+    }
   }
   // render: function() {
   //   this.game.debug.body(this.player)
