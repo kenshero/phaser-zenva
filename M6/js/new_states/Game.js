@@ -32,6 +32,11 @@ MrHop.GameState = {
 
     this.platformPool.forEachAlive(function(platform, index){
       this.game.physics.arcade.collide(this.player, platform)
+
+      // check kill
+      if(platform.length && platform.children[platform.length-1].right < 0) {
+        platform.kill()
+      }
     }, this)
 
     if(this.player.body.touching.down){
@@ -45,7 +50,6 @@ MrHop.GameState = {
     } else if(this.cursors.up.isUp || this.game.input.activePointer.isUp) {
       this.isJumping = false
     }
-
     if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length - 1].right < this.game.world.width) {
       this.createPlatform()
     }
@@ -112,16 +116,28 @@ MrHop.GameState = {
   },
   createPlatform: function() {
     var nextPlatformData = this.levelData.platforms[this.currIndex]
-    if(nextPlatformData) {
-      this.currentPlatform = new MrHop.Platform(
-        this.game,
-        this.floorPool,
-        nextPlatformData.numTiles,
-        this.game.world.width + nextPlatformData.separation,
-        nextPlatformData.y,
-        -this.levelSpeed
-      )
 
+    if(nextPlatformData) {
+      this.currentPlatform = this.platformPool.getFirstDead()
+      if(!this.currentPlatform) {
+        console.log("aaaaaaaa");
+        this.currentPlatform = new MrHop.Platform(
+          this.game,
+          this.floorPool,
+          nextPlatformData.numTiles,
+          this.game.world.width + nextPlatformData.separation,
+          nextPlatformData.y,
+          -this.levelSpeed
+        )
+      } else {
+        console.log("bbbbbbbb");
+        this.currentPlatform.prepare(
+          nextPlatformData.numTiles,
+          this.game.world.width + nextPlatformData.separation,
+          nextPlatformData.y,
+          -this.levelSpeed
+        )
+      }
       this.platformPool.add(this.currentPlatform)
       this.currIndex++
     }

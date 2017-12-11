@@ -39,12 +39,12 @@ MrHop.Platform.prototype.kill = function() {
   this.alive = false
   this.callAll('kill')
 
-  var sprite = []
+  var sprites = []
   this.forEach(function(tile){
-    sprite.push(tile)
+    sprites.push(tile)
   }, this)
 
-  sprite.forEach(function(tile){
+  sprites.forEach(function(tile){
     this.floorPool.add(tile)
   }, this)
 }
