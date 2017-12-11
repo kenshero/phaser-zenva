@@ -14,10 +14,16 @@ MrHop.GameState = {
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.myCoins = 0
+    this.coinSound = this.add.audio('coin')
 
     this.levelSpeed = 200
   },
   create: function() {
+    this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'background')
+    this.background.tileScale.y = 2
+    this.background.autoScroll(-this.levelSpeed/6, 0)
+    this.game.world.sendToBack(this.background)
+
     this.player = this.add.sprite(50, 50, 'player')
     this.player.anchor.setTo(0.5)
     this.player.animations.add('running', [0, 1, 2, 3, 2, 1], 15, true)
@@ -30,31 +36,45 @@ MrHop.GameState = {
     this.platformPool.add(this.currentPlatform)
 
     this.loadLevel()
+
+    this.water = this.add.tileSprite(0, this.game.world.height - 30, this.game.world.width, 30, 'water')
+    this.water.autoScroll(-this.levelSpeed/2, 0)
   },
   update: function() {
+    // this.coinsPool.forEachAlive(function(coin){
+    //   if(coin.right <= 0) {
+    //     coin.kill();
+    //   }
+    // }, this);
+    if(this.player.alive){
+      this.platformPool.forEachAlive(function(platform, index){
+        this.game.physics.arcade.collide(this.player, platform)
 
-    this.platformPool.forEachAlive(function(platform, index){
-      this.game.physics.arcade.collide(this.player, platform)
+        // check kill
+        if(platform.length && platform.children[platform.length-1].right < 0) {
+          platform.kill()
+        }
+      }, this)
 
-      // check kill
-      if(platform.length && platform.children[platform.length-1].right < 0) {
-        platform.kill()
+      this.game.physics.arcade.overlap(this.player, this.coinsPool, this.collectCoin, null, this)
+
+      if(this.player.body.touching.down){
+        this.player.body.velocity.x = this.levelSpeed
+      } else {
+        this.player.body.velocity.x = 0
       }
-    }, this)
 
-    if(this.player.body.touching.down){
-      this.player.body.velocity.x = this.levelSpeed
-    } else {
-      this.player.body.velocity.x = 0
-    }
-
-    if(this.cursors.up.isDown || this.game.input.activePointer.isDown) {
-      this.playerJump()
-    } else if(this.cursors.up.isUp || this.game.input.activePointer.isUp) {
-      this.isJumping = false
-    }
-    if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length - 1].right < this.game.world.width) {
-      this.createPlatform()
+      if(this.cursors.up.isDown || this.game.input.activePointer.isDown) {
+        this.playerJump()
+      } else if(this.cursors.up.isUp || this.game.input.activePointer.isUp) {
+        this.isJumping = false
+      }
+      if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length - 1].right < this.game.world.width) {
+        this.createPlatform()
+      }
+      if(this.player.top >= this.game.world.height || this.player.left <= 0){
+        this.gameOver()
+      }
     }
   },
   playerJump: function() {
@@ -84,7 +104,6 @@ MrHop.GameState = {
     if(nextPlatformData) {
       this.currentPlatform = this.platformPool.getFirstDead()
       if(!this.currentPlatform) {
-        console.log("aaaaaaaa");
         this.currentPlatform = new MrHop.Platform(
           this.game,
           this.floorPool,
@@ -95,7 +114,6 @@ MrHop.GameState = {
           this.coinsPool
         )
       } else {
-        console.log("bbbbbbbb");
         this.currentPlatform.prepare(
           nextPlatformData.numTiles,
           this.game.world.width + nextPlatformData.separation,
@@ -126,6 +144,20 @@ MrHop.GameState = {
     data.numTiles = minTiles + Math.random() * (maxTiles - minTiles)
 
     return data
+  },
+  collectCoin: function(player, coin) {
+    coin.kill()
+    this.myCoins++
+    this.coinSound.play()
+  },
+  gameOver: function() {
+    this.player.kill()
+    this.restart()
+  },
+  restart: function() {
+    this.game.world.remove(this.background)
+    this.game.world.remove(this.water)
+    this.game.state.restart()
   }
   // render: function() {
   //   this.game.debug.body(this.player)
