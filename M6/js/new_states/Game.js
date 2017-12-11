@@ -5,6 +5,9 @@ MrHop.GameState = {
     this.floorPool = this.add.group()
     this.platformPool = this.add.group()
 
+    this.coinsPool = this.add.group()
+    this.coinsPool.enableBody = true
+
     this.game.physics.arcade.gravity.y = 1000
 
     this.maxJumpDistance = 120
@@ -23,7 +26,7 @@ MrHop.GameState = {
     this.player.body.setSize(38, 60, 0, 0)
     this.player.play('running')
 
-    this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200, -this.levelSpeed)
+    this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, 12, 0, 200, -this.levelSpeed, this.coinsPool)
     this.platformPool.add(this.currentPlatform)
 
     this.loadLevel()
@@ -88,7 +91,8 @@ MrHop.GameState = {
           nextPlatformData.numTiles,
           this.game.world.width + nextPlatformData.separation,
           nextPlatformData.y,
-          -this.levelSpeed
+          -this.levelSpeed,
+          this.coinsPool
         )
       } else {
         console.log("bbbbbbbb");

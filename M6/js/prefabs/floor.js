@@ -1,12 +1,14 @@
 var MrHop = MrHop || {}
 
-MrHop.Platform = function(game, floorPool, numTiles, x, y, speed) {
+MrHop.Platform = function(game, floorPool, numTiles, x, y, speed, coinsPool) {
   Phaser.Group.call(this, game)
 
   this.tileSize = 40
   this.game = game
   this.enableBody = true
   this.floorPool = floorPool
+  this.coinsPool= coinsPool
+  this.speed = speed
 
   this.prepare(numTiles, x, y, speed)
 
@@ -33,6 +35,9 @@ MrHop.Platform.prototype.prepare = function(numTiles, x, y, speed) {
   this.setAll('body.immovable', true)
   this.setAll('body.allowGravity', false)
   this.setAll('body.velocity.x', speed)
+
+  this.addCoins(speed)
+
 }
 
 MrHop.Platform.prototype.kill = function() {
@@ -46,5 +51,27 @@ MrHop.Platform.prototype.kill = function() {
 
   sprites.forEach(function(tile){
     this.floorPool.add(tile)
+  }, this)
+}
+
+MrHop.Platform.prototype.addCoins = function(speed) {
+  var coinsY = 90 + Math.random() * 110
+
+  var hasCoin;
+  this.forEach(function(tile){
+    hasCoin = Math.random() <= 0.4
+    if(hasCoin) {
+      var coin = this.coinsPool.getFirstExists(false)
+
+      if(!coin) {
+        coin = new Phaser.Sprite(this.game, tile.x, tile.y - coinsY, 'coin')
+        this.coinsPool.add(coin)
+      } else {
+        coin.reset(tile.x, tile.y - coinsY)
+      }
+
+      coin.body.velocity.x = speed
+      coin.body.allowGravity = false
+    }
   }, this)
 }
