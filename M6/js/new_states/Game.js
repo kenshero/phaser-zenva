@@ -72,50 +72,11 @@ MrHop.GameState = {
     }
   },
   loadLevel: function() {
-    this.levelData = {
-      platforms: [
-        {
-          separation: 50,
-          y: 200,
-          numTiles: 4
-        },
-        {
-          separation: 50,
-          y: 250,
-          numTiles: 6
-        },
-        {
-          separation: 100,
-          y: 200,
-          numTiles: 3
-        },
-        {
-          separation: 50,
-          y: 250,
-          numTiles: 8
-        },
-        {
-          separation: 100,
-          y: 200,
-          numTiles: 10
-        },
-        {
-          separation: 100,
-          y: 300,
-          numTiles: 4
-        },
-        {
-          separation: 50,
-          y: 200,
-          numTiles: 4
-        }
-      ]
-    }
-    this.currIndex = 0
+
     this.createPlatform()
   },
   createPlatform: function() {
-    var nextPlatformData = this.levelData.platforms[this.currIndex]
+    var nextPlatformData = this.generateRandomPlatform()
 
     if(nextPlatformData) {
       this.currentPlatform = this.platformPool.getFirstDead()
@@ -139,8 +100,28 @@ MrHop.GameState = {
         )
       }
       this.platformPool.add(this.currentPlatform)
-      this.currIndex++
     }
+  },
+  generateRandomPlatform: function() {
+    var data = {}
+
+    var minSeparation = 60
+    var maxSeparation = 200
+    data.separation = minSeparation + Math.random() * (maxSeparation - minSeparation)
+
+    var minDifY = -120
+    var maxDifY = 120
+
+    data.y = this.currentPlatform.children[0].y + (minDifY + Math.random() * (maxDifY - minDifY))
+    data.y = Math.max(150, data.y)
+    data.y = Math.min(this.game.world.height - 50, data.y)
+
+
+    var minTiles = 1
+    var maxTiles = 5
+    data.numTiles = minTiles + Math.random() * (maxTiles - minTiles)
+
+    return data
   }
   // render: function() {
   //   this.game.debug.body(this.player)
