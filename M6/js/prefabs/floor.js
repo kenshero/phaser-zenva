@@ -28,6 +28,7 @@ MrHop.Platform.prototype.prepare = function(numTiles, x, y, speed) {
       floorTile.reset(x + i * this.tileSize, y)
     }
 
+    console.log("this: ", this.add)
     this.add(floorTile)
     i++
   }
