@@ -1,7 +1,8 @@
 var ZPlat = ZPlat || {};
 
+ZPlat.dim = ZPlat.getGameLandscapeDimensions(700, 350)
 
-ZPlat.game = new Phaser.Game(480, 360, Phaser.AUTO);
+ZPlat.game = new Phaser.Game(ZPlat.dim.w, ZPlat.dim.h, Phaser.AUTO)
 
 ZPlat.game.state.add('Boot', ZPlat.BootState);
 ZPlat.game.state.add('Preload', ZPlat.PreloadState);
