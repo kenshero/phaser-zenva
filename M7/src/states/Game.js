@@ -77,8 +77,8 @@ ZPlat.GameState = {
     this.game.camera.follow(this.player)
   },
   createOnscreenControls: function() {
-    this.leftArrow = this.add.button(20, this.game.height - 60, 'arrowButton');
-    this.rightArrow = this.add.button(110, this.game.height - 60, 'arrowButton');
+    this.leftArrow = this.add.button(20, this.game.height - 60, 'arrowLeftButton');
+    this.rightArrow = this.add.button(110, this.game.height - 60, 'arrowRightButton');
     this.actionButton = this.add.button(this.game.width - 100, this.game.height - 60, 'actionButton');
 
     this.leftArrow.alpha = 0.5;

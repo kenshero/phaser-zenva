@@ -16,7 +16,8 @@ ZPlat.PreloadState = {
     this.load.image('slime', 'assets/images/slime.png');
     this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 28, 30, 5, 1, 1);
     this.load.spritesheet('fly', 'assets/images/fly_spritesheet.png', 35, 18, 2, 1, 2);
-    this.load.image('arrowButton', 'assets/images/arrowButton.png');
+    this.load.image('arrowLeftButton', 'assets/images/arrowLeftButton.png');
+    this.load.image('arrowRightButton', 'assets/images/arrowRightButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
 
     this.load.image('gameTiles', 'assets/images/tiles_spritesheet.png');
