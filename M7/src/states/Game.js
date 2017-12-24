@@ -25,7 +25,7 @@ ZPlat.GameState = {
     this.createOnscreenControls();
   },
   update: function() {
-    this.game.physics.arcade.collide(this.player, this.platform);
+    this.game.physics.arcade.collide(this.player, this.collisionLayer);
 
     //generic platformer behavior (as in Monster Kong)
     this.player.body.velocity.x = 0;
@@ -52,17 +52,27 @@ ZPlat.GameState = {
   },
   loadLevel: function() {
 
-    this.player = this.add.sprite(100, 150, 'player', 3)
+    this.map = this.add.tilemap('level1')
+
+    this.map.addTilesetImage('tiles_spritesheet2', 'gameTiles')
+
+    //create layers
+    this.backgroundLayer = this.map.createLayer('backgroundLayer')
+    this.collisionLayer = this.map.createLayer('collisionLayer')
+
+    this.game.world.sendToBack(this.backgroundLayer)
+
+    this.map.setCollisionBetween(1, 160, true, 'collisionLayer')
+
+    this.collisionLayer.resizeWorld()
+
+
+    this.player = this.add.sprite(300, 0, 'player', 3)
     this.player.anchor.setTo(0.5)
     this.player.animations.add('walking', [0, 1, 2, 1], 6, true)
     this.game.physics.arcade.enable(this.player)
     this.player.customParams = {}
     this.player.body.collideWorldBounds = true
-
-    this.platform = this.add.sprite(50, 180, 'platform')
-    this.game.physics.arcade.enable(this.platform)
-    this.platform.body.allowGravity = false
-    this.platform.body.immovable = true
 
     this.game.camera.follow(this.player)
   },
