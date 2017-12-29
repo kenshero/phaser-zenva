@@ -3,7 +3,7 @@ var ZPlat = ZPlat || {};
 ZPlat.GameState = {
 
   init: function(level) {
-
+    console.log("level : ", level);
     this.currentLevel = level || 'level1';
 
     //constants
@@ -26,6 +26,8 @@ ZPlat.GameState = {
   },
   update: function() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
+
+    this.game.physics.arcade.overlap(this.player, this.goal, this.changeLevel, null, this);
 
     //generic platformer behavior (as in Monster Kong)
     this.player.body.velocity.x = 0;
@@ -52,9 +54,9 @@ ZPlat.GameState = {
   },
   loadLevel: function() {
 
-    this.map = this.add.tilemap('level1')
+    this.map = this.add.tilemap(this.currentLevel)
 
-    this.map.addTilesetImage('tiles_spritesheet2', 'gameTiles')
+    this.map.addTilesetImage('tiles_spritesheet', 'gameTiles')
 
     //create layers
     this.backgroundLayer = this.map.createLayer('backgroundLayer')
@@ -66,8 +68,15 @@ ZPlat.GameState = {
 
     this.collisionLayer.resizeWorld()
 
+    var goalArr = this.findObjectsByType('goal', this.map, 'objectsLayer')
+    this.goal = this.add.sprite(goalArr[0].x, goalArr[0].y, 'goal')
+    this.game.physics.arcade.enable(this.goal)
+    this.goal.body.allowGravity = false
+    this.goal.nextLevel = goalArr[0].properties.nextLevel
 
-    this.player = this.add.sprite(300, 0, 'player', 3)
+
+    var playerArr = this.findObjectsByType('player', this.map, 'objectsLayer')
+    this.player = this.add.sprite(playerArr[0].x, playerArr[0].y, 'player', 3)
     this.player.anchor.setTo(0.5)
     this.player.animations.add('walking', [0, 1, 2, 1], 6, true)
     this.game.physics.arcade.enable(this.player)
@@ -130,5 +139,20 @@ ZPlat.GameState = {
     this.rightArrow.events.onInputOut.add(function(){
       this.player.customParams.isMovingRight = false;
     }, this);
+  },
+  findObjectsByType: function(targetType, tilemap, layer) {
+    var result = []
+    tilemap.objects[layer].forEach(function(element){
+      if(element.properties.type == targetType) {
+        element.y -= tilemap.tileHeight
+        result.push(element)
+      }
+    }, this)
+
+    return result
+  },
+  changeLevel: function(player, goal){
+    console.log("go to :" + goal.nextLevel)
+    this.game.state.start('Game', true, false, goal.nextLevel)
   }
 }
