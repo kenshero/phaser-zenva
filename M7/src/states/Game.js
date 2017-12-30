@@ -26,6 +26,7 @@ ZPlat.GameState = {
   },
   update: function() {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
+    this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
 
     this.game.physics.arcade.overlap(this.player, this.goal, this.changeLevel, null, this);
 
@@ -84,6 +85,11 @@ ZPlat.GameState = {
     this.player.body.collideWorldBounds = true
 
     this.game.camera.follow(this.player)
+
+    this.enemies = this.add.group()
+
+    var sampleEnemy = new ZPlat.Enemy(this.game, 100, 300, 'slime', undefined, this.map)
+    this.enemies.add(sampleEnemy)
   },
   createOnscreenControls: function() {
     this.leftArrow = this.add.button(20, this.game.height - 60, 'arrowLeftButton');
