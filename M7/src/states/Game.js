@@ -54,6 +54,10 @@ ZPlat.GameState = {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
       this.player.customParams.mustJump = false;
     }
+
+    if(this.player.bottom == this.game.world.height){
+      this.gameOver()
+    }
   },
   loadLevel: function() {
 
