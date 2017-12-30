@@ -87,9 +87,8 @@ ZPlat.GameState = {
     this.game.camera.follow(this.player)
 
     this.enemies = this.add.group()
+    this.createEnemies()
 
-    var sampleEnemy = new ZPlat.Enemy(this.game, 100, 300, 'slime', undefined, this.map)
-    this.enemies.add(sampleEnemy)
   },
   createOnscreenControls: function() {
     this.leftArrow = this.add.button(20, this.game.height - 60, 'arrowLeftButton');
@@ -157,8 +156,19 @@ ZPlat.GameState = {
 
     return result
   },
-  changeLevel: function(player, goal){
+  changeLevel: function(player, goal) {
     console.log("go to :" + goal.nextLevel)
     this.game.state.start('Game', true, false, goal.nextLevel)
+  },
+  createEnemies: function() {
+    var enemyArr = this.findObjectsByType('enemy', this.map, 'objectsLayer')
+
+    var enemy;
+
+    enemyArr.forEach(function(element){
+      enemy = new ZPlat.Enemy(this.game, element.x, element.y, 'slime', element.properties.velocity, this.map)
+      this.enemies.add(enemy)
+    }, this)
+
   }
 }
