@@ -30,6 +30,8 @@ ZPlat.GameState = {
 
     this.game.physics.arcade.overlap(this.player, this.goal, this.changeLevel, null, this);
 
+    this.game.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+
     //generic platformer behavior (as in Monster Kong)
     this.player.body.velocity.x = 0;
 
@@ -170,5 +172,17 @@ ZPlat.GameState = {
       this.enemies.add(enemy)
     }, this)
 
+  },
+  hitEnemy: function(player, enemy) {
+    console.log(enemy.body.touching.up);
+    if(enemy.body.touching.up){
+      enemy.kill()
+      player.body.velocity.y = -this.BOUNCING_SPEED
+    } else {
+      this.gameOver()
+    }
+  },
+  gameOver: function() {
+    this.game.state.start('Game', true, false, this.currentLevel)
   }
 }
