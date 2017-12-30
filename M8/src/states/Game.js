@@ -18,6 +18,14 @@ Veggies.GameState = {
     this.zombies = this.add.group()
     this.suns = this.add.group()
 
+    var plantData = {
+      plantAsset: 'plant',
+      health: 10,
+    }
+
+    this.plant = new Veggies.Plant(this, 100, 100, plantData)
+    this.plants.add(this.plant)
+
   },
   update: function() {
 
