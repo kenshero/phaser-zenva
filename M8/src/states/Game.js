@@ -36,11 +36,11 @@ Veggies.GameState = {
     this.zombies.add(this.zombie)
 
     var plantData = {
-      plantAsset: 'sunflower',
+      plantAsset: 'plant',
       health: 10,
-      // isShooter: true,
-      isSunProducer: true,
-      // animationFrames: [1, 2, 1, 0],
+      isShooter: true,
+      // isSunProducer: true,
+      animationFrames: [1, 2, 1, 0],
     }
 
     this.plant = new Veggies.Plant(this, 100, 100, plantData)
@@ -53,9 +53,13 @@ Veggies.GameState = {
     this.sunGenerationTimer.start()
     this.scheduleSunGeneration()
 
+    //hiting sound
+    this.hitSound = this.add.audio('hit')
+
   },
   update: function() {
     this.game.physics.arcade.collide(this.plants, this.zombies, this.attackPlant, null, this)
+    this.game.physics.arcade.collide(this.bullets, this.zombies, this.hitZombie, null, this)
 
     this.zombies.forEachAlive(function(zombie){
       zombie.body.velocity.x = zombie.defaultVelocity
@@ -139,5 +143,10 @@ Veggies.GameState = {
     }
 
     return newElement
+  },
+  hitZombie: function(bullet, zombie) {
+    bullet.kill()
+    this.hitSound.play()
+    zombie.damage(1)
   }
 };

@@ -32,3 +32,20 @@ Veggies.Zombie.prototype.reset = function(x, y, data) {
   this.body.velocity.x = data.velocity
 
 }
+
+Veggies.Zombie.prototype.damage = function(amount) {
+  Phaser.Sprite.prototype.damage.call(this, amount)
+
+  //particle blood
+  var emitter = this.game.add.emitter(this.x, this.y, 50)
+  emitter.makeParticles('bloodParticle')
+  emitter.minParticleSpeed.setTo(-100, -100)
+  emitter.maxParticleSpeed.setTo(100, 100)
+  emitter.gravity = 300
+  emitter.start(true, 200, null, 100)
+
+  if(this.health <= 0) {
+    var corpse = this.game.add.sprite(this.x, this.bottom, 'deadZombie')
+    corpse.anchor.setTo(0.5, 1)
+  }
+}
