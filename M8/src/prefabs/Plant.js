@@ -55,7 +55,7 @@ Veggies.Plant.prototype.scheduleShooting = function() {
 }
 
 Veggies.Plant.prototype.shoot = function() {
-  if(this.animationName) {
+  if(this.animations.getAnimation(this.animationName)) {
     this.play(this.animationName)
   }
 

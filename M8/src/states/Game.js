@@ -23,7 +23,7 @@ Veggies.GameState = {
       health: 10,
       animationFrames: [0, 1, 2, 1],
       attack: 0.1,
-      velocity: -20
+      velocity: -10
     }
 
     this.zombie = new Veggies.Zombie(this, 300, 100, zombieData)
@@ -38,6 +38,9 @@ Veggies.GameState = {
 
     this.plant = new Veggies.Plant(this, 100, 100, plantData)
     this.plants.add(this.plant)
+
+    this.sun = new Veggies.Sun(this, 200, 100)
+    this.suns.add(this.sun)
 
   },
   update: function() {
