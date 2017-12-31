@@ -5,7 +5,7 @@ Veggies.GameState = {
   init: function(currentLevel) {
     //keep track of the current level
     this.currentLevel = currentLevel ? currentLevel : 'level1';
-
+    this.HOUSE_X = 60
     //no gravity in a top-down game
     this.game.physics.arcade.gravity.y = 0
   },
@@ -39,9 +39,22 @@ Veggies.GameState = {
 
   },
   update: function() {
+    this.game.physics.arcade.collide(this.plants, this.zombies, this.attackPlant, null, this)
 
+    this.zombies.forEachAlive(function(zombie){
+      zombie.body.velocity.x = zombie.defaultVelocity
+
+      if(zombie.x <= this.HOUSE_X) {
+        this.gameOver()
+      }
+
+    }, this)
   },
   gameOver: function() {
     this.game.state.start('Game');
+  },
+  attackPlant: function(plant, zombie) {
+    plant.damage(zombie.attack)
+    console.log('zombile attack');
   }
 };
