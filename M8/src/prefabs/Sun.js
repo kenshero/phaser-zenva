@@ -16,6 +16,7 @@ Veggies.Sun = function(state, x, y) {
   this.inputEnabled = true
   this.input.pixelPerfectClick = true
   this.events.onInputDown.add(function(){
+    this.state.increaseSun(25)
     this.kill()
   }, this)
 

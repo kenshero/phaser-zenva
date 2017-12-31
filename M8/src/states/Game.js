@@ -6,6 +6,8 @@ Veggies.GameState = {
     //keep track of the current level
     this.currentLevel = currentLevel ? currentLevel : 'level1';
     this.HOUSE_X = 60
+    this.SUN_FREQUENCY = 5
+    this.SUN_VELOCITY = 50
     //no gravity in a top-down game
     this.game.physics.arcade.gravity.y = 0
   },
@@ -17,6 +19,10 @@ Veggies.GameState = {
     this.plants = this.add.group()
     this.zombies = this.add.group()
     this.suns = this.add.group()
+
+    this.numSums = 100
+
+    this.createGui()
 
     var zombieData = {
       asset: 'zombie',
@@ -41,6 +47,10 @@ Veggies.GameState = {
 
     this.sun = new Veggies.Sun(this, 200, 100)
     this.suns.add(this.sun)
+
+    this.sunGenerationTimer = this.game.time.create(false)
+    this.sunGenerationTimer.start()
+    this.scheduleSunGeneration()
 
   },
   update: function() {
@@ -82,6 +92,49 @@ Veggies.GameState = {
       this.plants.add(newElement)
     } else {
       newElement.reset(x, y, data)
+    }
+
+    return newElement
+  },
+  createGui: function() {
+    var sun = this.add.sprite(10, this.game.height - 20, 'sun')
+    sun.anchor.setTo(0.5)
+    sun.scale.setTo(0.5)
+
+    var style = {font: '14 Arial', fill: '#fff'}
+    this.sunLabel = this.add.text(22, this.game.height - 28, '', style)
+    this.updateStats()
+  },
+  updateStats: function() {
+    this.sunLabel.text = this.numSums
+  },
+  increaseSun: function(amount) {
+    this.numSums += amount
+    this.updateStats()
+  },
+  scheduleSunGeneration: function() {
+    this.sunGenerationTimer.add(Phaser.Timer.SECOND * this.SUN_FREQUENCY, function(){
+      this.generateRandomSun()
+      this.scheduleSunGeneration()
+    }, this)
+  },
+  generateRandomSun: function() {
+
+    var y = -20
+    var x = 40 + 420 * Math.random()
+
+    var sun = this.createSun(x, y)
+
+    sun.body.velocity.y = this.SUN_VELOCITY
+  },
+  createSun: function(x, y) {
+    var newElement = this.suns.getFirstDead()
+
+    if(!newElement) {
+      newElement = new Veggies.Sun(this, x, y)
+      this.suns.add(newElement)
+    } else {
+      newElement.reset(x, y)
     }
 
     return newElement
