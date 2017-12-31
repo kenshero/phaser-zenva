@@ -37,6 +37,8 @@ Veggies.GameState = {
     this.plant = new Veggies.Plant(this, 100, 100, plantData)
     this.plants.add(this.plant)
 
+    this.bullet = new Veggies.Bullet(this, 100, 200)
+    this.bullets.add(this.bullet)
   },
   update: function() {
     this.game.physics.arcade.collide(this.plants, this.zombies, this.attackPlant, null, this)
