@@ -18,6 +18,17 @@ Veggies.GameState = {
     this.zombies = this.add.group()
     this.suns = this.add.group()
 
+    var zombieData = {
+      asset: 'zombie',
+      health: 10,
+      animationFrames: [0, 1, 2, 1],
+      attack: 0.1,
+      velocity: -20
+    }
+
+    this.zombie = new Veggies.Zombie(this, 300, 100, zombieData)
+    this.zombies.add(this.zombie)
+
     var plantData = {
       plantAsset: 'plant',
       health: 10,
