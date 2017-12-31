@@ -32,7 +32,8 @@ Veggies.GameState = {
     var plantData = {
       plantAsset: 'plant',
       health: 10,
-      isShooter: true
+      isShooter: true,
+      animationFrames: [1, 2, 1, 0],
     }
 
     this.plant = new Veggies.Plant(this, 100, 100, plantData)

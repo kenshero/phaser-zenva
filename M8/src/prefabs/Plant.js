@@ -27,6 +27,13 @@ Veggies.Plant.prototype.reset = function(x, y, data) {
 
   this.loadTexture(data.plantAsset)
 
+  this.animationName = null
+
+  if(data.animationFrames) {
+    this.animationName = data.plantAsset + 'Anim'
+    this.animations.add(this.animationName, data.animationFrames, 6, false)
+  }
+
   this.isShooter = data.isShooter
   if(this.isShooter) {
     this.shootingTimer.start()
@@ -48,6 +55,10 @@ Veggies.Plant.prototype.scheduleShooting = function() {
 }
 
 Veggies.Plant.prototype.shoot = function() {
+  if(this.animationName) {
+    this.play(this.animationName)
+  }
+
   var y = this.y - 10
 
   var newElement = this.bullets.getFirstDead()
