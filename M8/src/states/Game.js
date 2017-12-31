@@ -36,10 +36,11 @@ Veggies.GameState = {
     this.zombies.add(this.zombie)
 
     var plantData = {
-      plantAsset: 'plant',
+      plantAsset: 'sunflower',
       health: 10,
-      isShooter: true,
-      animationFrames: [1, 2, 1, 0],
+      // isShooter: true,
+      isSunProducer: true,
+      // animationFrames: [1, 2, 1, 0],
     }
 
     this.plant = new Veggies.Plant(this, 100, 100, plantData)
