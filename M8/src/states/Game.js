@@ -56,5 +56,29 @@ Veggies.GameState = {
   attackPlant: function(plant, zombie) {
     plant.damage(zombie.attack)
     console.log('zombile attack');
+  },
+  createZombie: function(x, y, data) {
+    var newElement = this.zombies.getFirstDead()
+
+    if(!newElement) {
+      newElement = new Veggies.Zombie(this, x, y, data)
+      this.zombies.add(newElement)
+    } else {
+      newElement.reset(x, y, data)
+    }
+
+    return newElement
+  },
+  createPlant: function(x, y, data) {
+    var newElement = this.plants.getFirstDead()
+
+    if(!newElement) {
+      newElement = new Veggies.Zombie(this, x, y, data)
+      this.plants.add(newElement)
+    } else {
+      newElement.reset(x, y, data)
+    }
+
+    return newElement
   }
 };
