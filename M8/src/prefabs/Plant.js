@@ -1,6 +1,6 @@
 var Veggies = Veggies || {};
 
-Veggies.Plant = function(state, x, y, data) {
+Veggies.Plant = function(state, x, y, data, patch) {
   Phaser.Sprite.call(this, state.game, x, y, data.plantAsset);
 
   this.state = state;
@@ -16,13 +16,13 @@ Veggies.Plant = function(state, x, y, data) {
   this.shootingTimer = this.game.time.create(false)
   this.producingTimer = this.game.time.create(false)
 
-  this.reset(x, y, data)
+  this.reset(x, y, data, patch)
 };
 
 Veggies.Plant.prototype = Object.create(Phaser.Sprite.prototype);
 Veggies.Plant.prototype.constructor = Veggies.Plant;
 
-Veggies.Plant.prototype.reset = function(x, y, data) {
+Veggies.Plant.prototype.reset = function(x, y, data, patch) {
   Phaser.Sprite.prototype.reset.call(this, x, y, data.health)
 
   this.loadTexture(data.plantAsset)
@@ -36,6 +36,7 @@ Veggies.Plant.prototype.reset = function(x, y, data) {
 
   this.isShooter = data.isShooter
   this.isSunProducer = data.isSunProducer
+  this.patch = patch
 
   if(this.isShooter) {
     this.shootingTimer.start()
@@ -54,6 +55,8 @@ Veggies.Plant.prototype.kill = function() {
 
   this.shootingTimer.stop()
   this.producingTimer.stop()
+
+  this.patch.isBusy = false
 }
 
 Veggies.Plant.prototype.scheduleShooting = function() {

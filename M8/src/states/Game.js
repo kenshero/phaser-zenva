@@ -8,11 +8,13 @@ Veggies.GameState = {
     this.HOUSE_X = 60
     this.SUN_FREQUENCY = 5
     this.SUN_VELOCITY = 50
+    this.ZOMBIE_Y_POSITIONS = [49, 99, 149, 199, 249]
     //no gravity in a top-down game
     this.game.physics.arcade.gravity.y = 0
   },
   create: function() {
     this.background = this.add.sprite(0, 0, 'background');
+    this.createLandPatches()
 
     //group for game objects
     this.bullets = this.add.group()
@@ -20,7 +22,7 @@ Veggies.GameState = {
     this.zombies = this.add.group()
     this.suns = this.add.group()
 
-    this.numSums = 100
+    this.numSuns = 1000
 
     this.createGui()
 
@@ -35,17 +37,6 @@ Veggies.GameState = {
     this.zombie = new Veggies.Zombie(this, 300, 100, zombieData)
     this.zombies.add(this.zombie)
 
-    var plantData = {
-      plantAsset: 'plant',
-      health: 10,
-      isShooter: true,
-      // isSunProducer: true,
-      animationFrames: [1, 2, 1, 0],
-    }
-
-    this.plant = new Veggies.Plant(this, 100, 100, plantData)
-    this.plants.add(this.plant)
-
     this.sun = new Veggies.Sun(this, 200, 100)
     this.suns.add(this.sun)
 
@@ -55,6 +46,8 @@ Veggies.GameState = {
 
     //hiting sound
     this.hitSound = this.add.audio('hit')
+
+    this.loadLevel()
 
   },
   update: function() {
@@ -89,14 +82,14 @@ Veggies.GameState = {
 
     return newElement
   },
-  createPlant: function(x, y, data) {
+  createPlant: function(x, y, data, patch) {
     var newElement = this.plants.getFirstDead()
 
     if(!newElement) {
-      newElement = new Veggies.Zombie(this, x, y, data)
+      newElement = new Veggies.Plant(this, x, y, data, patch)
       this.plants.add(newElement)
     } else {
-      newElement.reset(x, y, data)
+      newElement.reset(x, y, data, patch)
     }
 
     return newElement
@@ -109,12 +102,26 @@ Veggies.GameState = {
     var style = {font: '14 Arial', fill: '#fff'}
     this.sunLabel = this.add.text(22, this.game.height - 28, '', style)
     this.updateStats()
+
+    this.buttonData = JSON.parse(this.game.cache.getText('buttonData'))
+
+    this.buttons = this.add.group()
+
+    var button
+    this.buttonData.forEach(function(element, index){
+      button = new Phaser.Button(this.game, 80 + index * 40, this.game.height - 35, element.btnAsset, this.clickButton, this)
+      this.buttons.add(button)
+
+      button.plantData = element
+    }, this)
+
+    this.plantLabel = this.add.text(300, this.game.height - 28, '', style)
   },
   updateStats: function() {
-    this.sunLabel.text = this.numSums
+    this.sunLabel.text = this.numSuns
   },
   increaseSun: function(amount) {
-    this.numSums += amount
+    this.numSuns += amount
     this.updateStats()
   },
   scheduleSunGeneration: function() {
@@ -148,5 +155,92 @@ Veggies.GameState = {
     bullet.kill()
     this.hitSound.play()
     zombie.damage(1)
+  },
+  clickButton: function(button) {
+    if(!button.selected) {
+      this.clearSelection()
+      this.plantLabel.text = 'Cost: ' + button.plantData.cost
+
+      if(this.numSuns >= button.plantData.cost) {
+        button.selected = true
+        button.alpha = 0.5
+
+        this.currentSelection = button.plantData
+      } else {
+        this.plantLabel.text += " - Too expensive!"
+      }
+
+    } else {
+      this.clearSelection()
+    }
+    console.log(button);
+  },
+  clearSelection: function() {
+    this.buttons.forEach(function(button){
+      button.alpha = 1
+      button.selected = false
+    }, this)
+  },
+  createLandPatches: function() {
+    this.patches = this.add.group()
+
+    var rectangle = this.add.bitmapData(40, 50)
+    rectangle.ctx.fillStyle = '#000'
+    rectangle.ctx.fillRect(0, 0, 40, 50)
+
+    var j, patch
+    var dark = false
+
+    for(var i = 0; i < 10; i++) {
+      for(j = 0; j < 5; j++) {
+        patch = new Phaser.Sprite(this.game, 64 + i * 40, 24 + j * 50, rectangle)
+        this.patches.add(patch)
+
+        alpha = dark ? 0.2 : 0.1
+        dark = !dark
+        patch.alpha = alpha
+
+        patch.inputEnabled = true
+        patch.events.onInputDown.add(this.plantPlant, this)
+      }
+    }
+  },
+  plantPlant: function(patch) {
+    if(!patch.isBusy && this.currentSelection) {
+      patch.isBusy = true
+
+      var plant = this.createPlant(patch.x + patch.width/2, patch.y + patch.height/2 , this.currentSelection, patch)
+
+      this.increaseSun(-this.currentSelection.cost)
+      this.clearSelection()
+    }
+  },
+  loadLevel: function() {
+    this.levelData = JSON.parse(this.game.cache.getText(this.currentLevel))
+
+    this.currentEnemyIndex = 0
+
+    this.killedEnemies = 0
+    this.numEnemies = this.levelData.zombies.length
+
+    this.scheduleNextEnemy()
+  },
+  scheduleNextEnemy: function() {
+    var nextEnemy = this.levelData.zombies[this.currentEnemyIndex]
+    if(nextEnemy) {
+      var nextTime = 1000 * (nextEnemy.time - (this.currentEnemyIndex == 0 ? 0 : this.levelData.zombies[this.currentEnemyIndex -1].time))
+
+      console.log("nextTime : ", nextTime);
+      this.nextEnemyTimer = this.game.time.events.add(nextTime, function(){
+        var y = this.ZOMBIE_Y_POSITIONS[Math.floor(Math.random() * this.ZOMBIE_Y_POSITIONS.length)]
+
+        this.createZombie(this.game.world.width + 40, y, nextEnemy)
+        console.log("create");
+        this.currentEnemyIndex++
+        this.scheduleNextEnemy()
+
+      }, this)
+    }
+
   }
 };
