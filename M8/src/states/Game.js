@@ -170,6 +170,10 @@ Veggies.GameState = {
     console.log(button);
   },
   clearSelection: function() {
+
+    this.plantLabel.text = "";
+    this.currentSelection = null;
+
     this.buttons.forEach(function(button){
       button.alpha = 1
       button.selected = false
@@ -182,7 +186,7 @@ Veggies.GameState = {
     rectangle.ctx.fillStyle = '#000'
     rectangle.ctx.fillRect(0, 0, 40, 50)
 
-    var j, patch
+    var j, patch, alpha
     var dark = false
 
     for(var i = 0; i < 10; i++) {
