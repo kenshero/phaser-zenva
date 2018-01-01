@@ -26,20 +26,6 @@ Veggies.GameState = {
 
     this.createGui()
 
-    var zombieData = {
-      asset: 'zombie',
-      health: 10,
-      animationFrames: [0, 1, 2, 1],
-      attack: 0.1,
-      velocity: -10
-    }
-
-    this.zombie = new Veggies.Zombie(this, 300, 100, zombieData)
-    this.zombies.add(this.zombie)
-
-    this.sun = new Veggies.Sun(this, 200, 100)
-    this.suns.add(this.sun)
-
     this.sunGenerationTimer = this.game.time.create(false)
     this.sunGenerationTimer.start()
     this.scheduleSunGeneration()
@@ -155,6 +141,14 @@ Veggies.GameState = {
     bullet.kill()
     this.hitSound.play()
     zombie.damage(1)
+
+    if(!zombie.alive) {
+      this.killedEnemies++
+
+      if(this.killedEnemies == this.numEnemies) {
+        this.game.state.start('Game', true, false, this.levelData.nextLevel)
+      }
+    }
   },
   clickButton: function(button) {
     if(!button.selected) {
