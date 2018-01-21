@@ -1,0 +1,240 @@
+Phaser.Plugin.OnscreenControls = function(game, parent) {
+  Phaser.Plugin.call(this, game, parent)
+
+  this.game = game
+  console.log('plugin ready');
+}
+
+Phaser.Plugin.OnscreenControls.prototype = Object.create(Phaser.Plugin.prototype)
+Phaser.Plugin.OnscreenControls.prototype.constructor = Phaser.Plugin.OnscreenControls
+
+Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
+  this.player = player
+
+  this.player.btnsPressed = this.player.btnsPressed || {}
+
+  this.btnH = 0.08 * this.game.width
+  this.btnW = this.btnH
+  this.edgeDistance = 0.25 * this.btnH
+  this.sizeActionBtn = 1.5 * this.btnH
+
+  var leftX = this.edgeDistance
+  var leftY = this.game.height - this.edgeDistance - this.btnW - this.btnH
+
+  var rightX = this.edgeDistance + this.btnH + this.btnW
+  var rightY = this.game.height - this.edgeDistance - this.btnW - this.btnH
+
+  var upX = this.edgeDistance + this.btnW + this.btnH
+  var upY = this.game.height - this.edgeDistance - 2 * this.btnW - this.btnH
+
+  var downX = this.edgeDistance + this.btnW + this.btnH
+  var downY = this.game.height - this.edgeDistance - this.btnW
+
+  this.directionBitmap = this.game.add.bitmapData(this.btnW, this.btnH)
+  this.directionBitmap.ctx.fillStyle = '#4BAFE3'
+  this.directionBitmap.ctx.fillRect(0, 0, this.btnW, this.btnH)
+
+  this.diagonnaBitmap = this.game.add.bitmapData(this.btnW, this.btnH)
+  this.diagonnaBitmap.ctx.fillStyle = '#4BAFE3'
+  this.diagonnaBitmap.ctx.fillRect(0, 0, this.btnW, this.btnH)
+
+  this.actionBitmap = this.game.add.bitmapData(this.sizeActionBtn, this.sizeActionBtn)
+  this.actionBitmap.ctx.fillStyle = '#C14BE3'
+  this.actionBitmap.ctx.fillRect(0, 0, this.sizeActionBtn, this.sizeActionBtn)
+
+  if(buttons.left) {
+    this.leftArrow = this.game.add.button(leftX, leftY, this.directionBitmap)
+    this.leftArrow.alpha = 0.5
+    this.leftArrow.fixedToCamera = true
+
+    this.leftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.left = true
+    })
+
+    this.leftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.left = false
+    })
+
+    this.leftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.left = true
+    })
+
+    this.leftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.left = false
+    })
+  }
+
+  if(buttons.right) {
+    this.rightArrow = this.game.add.button(rightX, rightY, this.directionBitmap)
+    this.rightArrow.alpha = 0.5
+    this.rightArrow.fixedToCamera = true
+
+    this.rightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.right = true
+    })
+
+    this.rightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.right = false
+    })
+
+    this.rightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.right = true
+    })
+
+    this.rightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.right = false
+    })
+  }
+
+  if(buttons.up) {
+    this.upArrow = this.game.add.button(upX, upY, this.directionBitmap)
+    this.upArrow.angle = 90;
+    this.upArrow.alpha = 0.5
+    this.upArrow.fixedToCamera = true
+
+    this.upArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.up = true
+    })
+
+    this.upArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.up = false
+    })
+
+    this.upArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.up = true
+    })
+
+    this.upArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.up = false
+    })
+  }
+
+  if(buttons.down) {
+    this.downArrow = this.game.add.button(downX, downY, this.directionBitmap)
+    this.downArrow.angle = 90;
+    this.downArrow.alpha = 0.5
+    this.downArrow.fixedToCamera = true
+
+    this.downArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.down = true
+    })
+
+    this.downArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.down = false
+    })
+
+    this.downArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.down = true
+    })
+
+    this.downArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.down = false
+    })
+  }
+
+  if(buttons.upleft) {
+    this.upleftArrow = this.game.add.button(leftX, upY, this.directionBitmap)
+    this.upleftArrow.alpha = 0.3
+    this.upleftArrow.fixedToCamera = true
+
+    this.upleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upleft = true
+    })
+
+    this.upleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upleft = false
+    })
+
+    this.upleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upleft = true
+    })
+
+    this.upleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upleft = false
+    })
+  }
+
+  if(buttons.downleft) {
+    this.downleftArrow = this.game.add.button(leftX, downY, this.directionBitmap)
+    this.downleftArrow.alpha = 0.3
+    this.downleftArrow.fixedToCamera = true
+
+    this.downleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downleft = true
+    })
+
+    this.downleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downleft = false
+    })
+
+    this.downleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downleft = true
+    })
+
+    this.downleftArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downleft = false
+    })
+  }
+
+  if(buttons.upright) {
+    this.uprightArrow = this.game.add.button(rightX, upY, this.directionBitmap)
+    this.uprightArrow.alpha = 0.3
+    this.uprightArrow.fixedToCamera = true
+
+    this.uprightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upright = true
+    })
+
+    this.uprightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upright = false
+    })
+
+    this.uprightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upright = true
+    })
+
+    this.uprightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.upright = false
+    })
+  }
+
+  if(buttons.downright) {
+    this.downrightArrow = this.game.add.button(rightX, downY, this.directionBitmap)
+    this.downrightArrow.alpha = 0.3
+    this.downrightArrow.fixedToCamera = true
+
+    this.downrightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downright = true
+    })
+
+    this.downrightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downright = false
+    })
+
+    this.downrightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downright = true
+    })
+
+    this.downrightArrow.events.onInputDown.add(function(){
+      this.player.btnsPressed.downright = false
+    })
+  }
+
+  if(buttons.action) {
+    var actionX = this.game.width - this.edgeDistance - this.sizeActionBtn
+    var actionY = this.game.height - this.edgeDistance - this.btnW - this.btnH
+    this.actionButton = this.game.add.button(actionX, actionY, this.actionBitmap)
+    this.actionButton.alpha = 0.5
+    this.actionButton.fixedToCamera = true
+
+    this.actionButton.events.onInputDown.add(function(){
+      this.player.btnsPressed.action = true
+    })
+
+    this.actionButton.events.onInputDown.add(function(){
+      this.player.btnsPressed.action = false
+    })
+
+  }
+
+}
