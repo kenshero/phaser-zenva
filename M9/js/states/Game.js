@@ -2,32 +2,32 @@ var RPG = RPG || {};
 
 RPG.GameState = {
 
-  init: function(currentLevel) {    
+  init: function(currentLevel) {
     //keep track of the current level
     this.currentLevel = currentLevel ? currentLevel : 'map1';
 
     //constants
     this.PLAYER_SPEED = 90;
-    
+
     //no gravity in a top-down game
-    this.game.physics.arcade.gravity.y = 0;    
+    this.game.physics.arcade.gravity.y = 0;
 
     //keyboard cursors
     this.cursors = this.game.input.keyboard.createCursorKeys();
   },
-  create: function() {   
+  create: function() {
 
     this.game.onscreenControls = this.game.plugins.add(Phaser.Plugin.OnscreenControls);
 
     this.loadLevel();
-  },   
-  update: function() {  
+  },
+  update: function() {
 
     //player can't walk through walls
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
 
     //items collection
-    this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);  
+    this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 
     //attacking enemies
     this.game.physics.arcade.collide(this.player, this.enemies, this.attack, null, this);
@@ -67,24 +67,24 @@ RPG.GameState = {
       this.player.frame = 0;
     }
 
-  },     
+  },
   loadLevel: function(){
     //create a tilemap object
     this.map = this.add.tilemap(this.currentLevel);
-    
+
     //join the tile images to the json data
     this.map.addTilesetImage('terrains', 'tilesheet');
-    
+
     //create tile layers
     this.backgroundLayer = this.map.createLayer('backgroundLayer');
     this.collisionLayer = this.map.createLayer('collisionLayer');
-    
+
     //send background to the back
     this.game.world.sendToBack(this.backgroundLayer);
-    
+
     //collision layer should be collisionLayer
     this.map.setCollisionBetween(1,16, true, 'collisionLayer');
-    
+
     //resize the world to fit the layer
     this.collisionLayer.resizeWorld();
 
@@ -223,15 +223,15 @@ RPG.GameState = {
   },
   findObjectsByType: function(targetType, tilemap, layer){
     var result = [];
-    
+
     tilemap.objects[layer].forEach(function(element){
       if(element.properties.type == targetType) {
-        element.y -= tilemap.tileHeight/2;        
-        element.x += tilemap.tileHeight/2;        
+        element.y -= tilemap.tileHeight/2;
+        element.x += tilemap.tileHeight/2;
         result.push(element);
       }
     }, this);
-    
+
     return result;
   },
   loadItems: function(){

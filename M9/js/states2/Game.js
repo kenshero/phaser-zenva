@@ -86,7 +86,18 @@ RPG.GameState = {
       attack: 12,
       defense: 8,
       gold: 100,
-      quests: []
+      quests: [
+        {
+          name: 'Find the Magic Scroll',
+          code: 'magic-scroll',
+          isCompleted: false
+        },
+        {
+          name: 'Find the Helmet of the Golds',
+          code: 'gods-helmet',
+          isCompleted: false
+        }
+      ]
     }
 
     this.player = new RPG.Player(this, 100, 100, playerData)
@@ -108,7 +119,6 @@ RPG.GameState = {
 
     var questItem = new RPG.Item(this, 100, 270, 'scroll', {isQuest: true, questCode: 'magic-scroll'})
     this.items.add(questItem)
-
     this.initGUI();
   },
   gameOver: function() {
