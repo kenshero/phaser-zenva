@@ -23,6 +23,9 @@ RPG.GameState = {
   },
   update: function() {
 
+    this.game.physics.arcade.collide(this.player, this.collisionLayer)
+    this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this)
+
     this.player.body.velocity.x = 0
     this.player.body.velocity.y = 0
 
@@ -123,6 +126,9 @@ RPG.GameState = {
       downright: true,
       action: true
     })
+  },
+  collect: function(player, item) {
+    this.player.collectItem(item)
   }
 
 };
