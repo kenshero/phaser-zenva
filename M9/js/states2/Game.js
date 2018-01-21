@@ -20,7 +20,6 @@ RPG.GameState = {
     this.game.onscreenControls = this.game.plugins.add(Phaser.Plugin.OnscreenControls)
 
     this.loadLevel();
-    this.initGUI();
   },
   update: function() {
 
@@ -79,7 +78,7 @@ RPG.GameState = {
 
 
     var playerData = {
-      item: [],
+      items: [],
       health: 25,
       attack: 12,
       defense: 8,
@@ -89,6 +88,25 @@ RPG.GameState = {
 
     this.player = new RPG.Player(this, 100, 100, playerData)
     this.add.existing(this.player)
+
+    this.items = this.add.group()
+
+    var potion = new RPG.Item(this, 100, 150, 'potion', {health: 10})
+    this.items.add(potion)
+
+    var sword = new RPG.Item(this, 100, 180, 'sword', {attack: 2})
+    this.items.add(sword)
+
+    var shield = new RPG.Item(this, 100, 210, 'shield', {defense: 2})
+    this.items.add(shield)
+
+    var chest = new RPG.Item(this, 100, 240, 'chest', {gold: 100})
+    this.items.add(chest)
+
+    var questItem = new RPG.Item(this, 100, 270, 'scroll', {isQuest: true, questCode: 'magic-scroll'})
+    this.items.add(questItem)
+
+    this.initGUI();
   },
   gameOver: function() {
     this.game.state.start('Game', true, false, this.currentLevel);
