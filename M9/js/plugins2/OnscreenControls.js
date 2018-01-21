@@ -49,19 +49,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.leftArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.left = true
-    })
+    }, this)
 
     this.leftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.left = false
-    })
+    }, this)
 
     this.leftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.left = true
-    })
+    }, this)
 
     this.leftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.left = false
-    })
+    }, this)
   }
 
   if(buttons.right) {
@@ -71,19 +71,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.rightArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.right = true
-    })
+    }, this)
 
     this.rightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.right = false
-    })
+    }, this)
 
     this.rightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.right = true
-    })
+    }, this)
 
     this.rightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.right = false
-    })
+    }, this)
   }
 
   if(buttons.up) {
@@ -94,19 +94,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.upArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.up = true
-    })
+    }, this)
 
     this.upArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.up = false
-    })
+    }, this)
 
     this.upArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.up = true
-    })
+    }, this)
 
     this.upArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.up = false
-    })
+    }, this)
   }
 
   if(buttons.down) {
@@ -117,19 +117,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.downArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.down = true
-    })
+    }, this)
 
     this.downArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.down = false
-    })
+    }, this)
 
     this.downArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.down = true
-    })
+    }, this)
 
     this.downArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.down = false
-    })
+    }, this)
   }
 
   if(buttons.upleft) {
@@ -139,19 +139,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.upleftArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.upleft = true
-    })
+    }, this)
 
     this.upleftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.upleft = false
-    })
+    }, this)
 
     this.upleftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.upleft = true
-    })
+    }, this)
 
     this.upleftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.upleft = false
-    })
+    }, this)
   }
 
   if(buttons.downleft) {
@@ -161,19 +161,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.downleftArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.downleft = true
-    })
+    }, this)
 
     this.downleftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.downleft = false
-    })
+    }, this)
 
     this.downleftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.downleft = true
-    })
+    }, this)
 
     this.downleftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.downleft = false
-    })
+    }, this)
   }
 
   if(buttons.upright) {
@@ -183,19 +183,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.uprightArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.upright = true
-    })
+    }, this)
 
     this.uprightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.upright = false
-    })
+    }, this)
 
     this.uprightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.upright = true
-    })
+    }, this)
 
     this.uprightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.upright = false
-    })
+    }, this)
   }
 
   if(buttons.downright) {
@@ -205,19 +205,19 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.downrightArrow.events.onInputDown.add(function(){
       this.player.btnsPressed.downright = true
-    })
+    }, this)
 
     this.downrightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.downright = false
-    })
+    }, this)
 
     this.downrightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.downright = true
-    })
+    }, this)
 
     this.downrightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.downright = false
-    })
+    }, this)
   }
 
   if(buttons.action) {
@@ -229,12 +229,16 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
 
     this.actionButton.events.onInputDown.add(function(){
       this.player.btnsPressed.action = true
-    })
+    }, this)
 
     this.actionButton.events.onInputUp.add(function(){
       this.player.btnsPressed.action = false
-    })
+    }, this)
 
   }
 
+}
+
+Phaser.Plugin.OnscreenControls.prototype.stopMovement = function() {
+  this.player.btnsPressed = {}
 }
