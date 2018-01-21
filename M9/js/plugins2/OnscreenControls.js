@@ -51,15 +51,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.left = true
     })
 
-    this.leftArrow.events.onInputDown.add(function(){
+    this.leftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.left = false
     })
 
-    this.leftArrow.events.onInputDown.add(function(){
+    this.leftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.left = true
     })
 
-    this.leftArrow.events.onInputDown.add(function(){
+    this.leftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.left = false
     })
   }
@@ -73,15 +73,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.right = true
     })
 
-    this.rightArrow.events.onInputDown.add(function(){
+    this.rightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.right = false
     })
 
-    this.rightArrow.events.onInputDown.add(function(){
+    this.rightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.right = true
     })
 
-    this.rightArrow.events.onInputDown.add(function(){
+    this.rightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.right = false
     })
   }
@@ -96,15 +96,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.up = true
     })
 
-    this.upArrow.events.onInputDown.add(function(){
+    this.upArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.up = false
     })
 
-    this.upArrow.events.onInputDown.add(function(){
+    this.upArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.up = true
     })
 
-    this.upArrow.events.onInputDown.add(function(){
+    this.upArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.up = false
     })
   }
@@ -119,15 +119,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.down = true
     })
 
-    this.downArrow.events.onInputDown.add(function(){
+    this.downArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.down = false
     })
 
-    this.downArrow.events.onInputDown.add(function(){
+    this.downArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.down = true
     })
 
-    this.downArrow.events.onInputDown.add(function(){
+    this.downArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.down = false
     })
   }
@@ -141,15 +141,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.upleft = true
     })
 
-    this.upleftArrow.events.onInputDown.add(function(){
+    this.upleftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.upleft = false
     })
 
-    this.upleftArrow.events.onInputDown.add(function(){
+    this.upleftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.upleft = true
     })
 
-    this.upleftArrow.events.onInputDown.add(function(){
+    this.upleftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.upleft = false
     })
   }
@@ -163,15 +163,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.downleft = true
     })
 
-    this.downleftArrow.events.onInputDown.add(function(){
+    this.downleftArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.downleft = false
     })
 
-    this.downleftArrow.events.onInputDown.add(function(){
+    this.downleftArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.downleft = true
     })
 
-    this.downleftArrow.events.onInputDown.add(function(){
+    this.downleftArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.downleft = false
     })
   }
@@ -185,15 +185,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.upright = true
     })
 
-    this.uprightArrow.events.onInputDown.add(function(){
+    this.uprightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.upright = false
     })
 
-    this.uprightArrow.events.onInputDown.add(function(){
+    this.uprightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.upright = true
     })
 
-    this.uprightArrow.events.onInputDown.add(function(){
+    this.uprightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.upright = false
     })
   }
@@ -207,15 +207,15 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.downright = true
     })
 
-    this.downrightArrow.events.onInputDown.add(function(){
+    this.downrightArrow.events.onInputUp.add(function(){
       this.player.btnsPressed.downright = false
     })
 
-    this.downrightArrow.events.onInputDown.add(function(){
+    this.downrightArrow.events.onInputOver.add(function(){
       this.player.btnsPressed.downright = true
     })
 
-    this.downrightArrow.events.onInputDown.add(function(){
+    this.downrightArrow.events.onInputOut.add(function(){
       this.player.btnsPressed.downright = false
     })
   }
@@ -231,7 +231,7 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons) {
       this.player.btnsPressed.action = true
     })
 
-    this.actionButton.events.onInputDown.add(function(){
+    this.actionButton.events.onInputUp.add(function(){
       this.player.btnsPressed.action = false
     })
 
