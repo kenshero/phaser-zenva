@@ -136,9 +136,40 @@ RPG.GameState = {
       downright: true,
       action: true
     })
+
+    this.showPlayerIcons()
   },
   collect: function(player, item) {
     this.player.collectItem(item)
+  },
+  showPlayerIcons: function() {
+    this.goldIcon = this.add.sprite(10, 10, 'coin')
+    this.goldIcon.fixedToCamera = true
+
+    var style = {font: '14px Arial', fill: '#fff'}
+    this.goldLabel = this.add.text(30, 10, '0', style)
+    this.goldLabel.fixedToCamera = true
+
+    this.attackIcon = this.add.sprite(70, 10, 'sword')
+    this.attackIcon.fixedToCamera = true
+
+    var style = {font: '14px Arial', fill: '#fff'}
+    this.attackLabel = this.add.text(90, 10, '0', style)
+    this.attackLabel.fixedToCamera = true
+
+    this.defenseIcon = this.add.sprite(130, 10, 'shield')
+    this.defenseIcon.fixedToCamera = true
+
+    var style = {font: '14px Arial', fill: '#fff'}
+    this.defenseLabel = this.add.text(150, 10, '0', style)
+    this.defenseLabel.fixedToCamera = true
+
+    this.refreshStats()
+  },
+  refreshStats: function() {
+    this.goldLabel.text = this.player.data.gold
+    this.attackLabel.text = this.player.data.attack
+    this.defenseLabel.text = this.player.data.defense
   }
 
 };
