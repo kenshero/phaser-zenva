@@ -8,6 +8,11 @@ RPG.Item = function(state, x, y, key, data) {
   this.data = data
   this.anchor.setTo(0.5)
 
+  this.data.attack = +this.data.attack
+  this.data.defense = +this.data.defense
+  this.data.health = +this.data.health
+  this.data.gold = +this.data.gold
+
   this.game.physics.arcade.enable(this)
 
 }

@@ -23,12 +23,13 @@
          "y":0
         }, 
         {
-         "height":20,
+         "draworder":"topdown",
          "name":"objectsLayer",
          "objects":[
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -36,15 +37,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":548,
                  "y":255
                 }, 
                 {
                  "gid":14,
-                 "height":0,
+                 "height":40,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -52,15 +61,23 @@
                      "attack":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":435,
                  "y":147
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
@@ -68,15 +85,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":272,
                  "y":83
                 }, 
                 {
                  "gid":14,
-                 "height":0,
+                 "height":40,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
@@ -84,15 +109,23 @@
                      "attack":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":94,
                  "y":497
                 }, 
                 {
                  "gid":14,
-                 "height":0,
+                 "height":40,
+                 "id":5,
                  "name":"",
                  "properties":
                     {
@@ -100,15 +133,23 @@
                      "attack":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":108,
                  "y":748
                 }, 
                 {
                  "gid":14,
-                 "height":0,
+                 "height":40,
+                 "id":6,
                  "name":"",
                  "properties":
                     {
@@ -116,15 +157,23 @@
                      "attack":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":824,
                  "y":523
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -132,15 +181,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":805,
                  "y":90
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
@@ -148,15 +205,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":901,
                  "y":691
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
@@ -164,15 +229,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":492,
                  "y":533
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":10,
                  "name":"",
                  "properties":
                     {
@@ -180,15 +253,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":50,
                  "y":746
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":11,
                  "name":"",
                  "properties":
                     {
@@ -196,15 +277,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":48,
                  "y":690
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":12,
                  "name":"",
                  "properties":
                     {
@@ -212,15 +301,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":863,
                  "y":89
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":13,
                  "name":"",
                  "properties":
                     {
@@ -228,15 +325,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":939,
                  "y":496
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":14,
                  "name":"",
                  "properties":
                     {
@@ -244,15 +349,23 @@
                      "health":"8",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":650,
                  "y":537
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":15,
                  "name":"",
                  "properties":
                     {
@@ -260,15 +373,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":227,
                  "y":482
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":16,
                  "name":"",
                  "properties":
                     {
@@ -276,15 +397,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":423,
                  "y":663
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":17,
                  "name":"",
                  "properties":
                     {
@@ -292,15 +421,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":580,
                  "y":657
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":18,
                  "name":"",
                  "properties":
                     {
@@ -308,15 +445,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":220,
                  "y":282
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":19,
                  "name":"",
                  "properties":
                     {
@@ -324,15 +469,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":266,
                  "y":308
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":20,
                  "name":"",
                  "properties":
                     {
@@ -340,15 +493,23 @@
                      "health":"4",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":434,
                  "y":100
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":21,
                  "name":"",
                  "properties":
                     {
@@ -358,15 +519,25 @@
                      "health":"10",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":79,
                  "y":279
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":22,
                  "name":"",
                  "properties":
                     {
@@ -376,15 +547,25 @@
                      "health":"6",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":469,
                  "y":298
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":23,
                  "name":"",
                  "properties":
                     {
@@ -394,15 +575,25 @@
                      "health":"6",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":239,
                  "y":426
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":24,
                  "name":"",
                  "properties":
                     {
@@ -412,15 +603,25 @@
                      "health":"20",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":161,
                  "y":520
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":25,
                  "name":"",
                  "properties":
                     {
@@ -430,15 +631,25 @@
                      "health":"6",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":520,
                  "y":601
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":26,
                  "name":"",
                  "properties":
                     {
@@ -448,15 +659,25 @@
                      "health":"6",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":200,
                  "y":685
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":27,
                  "name":"",
                  "properties":
                     {
@@ -466,15 +687,25 @@
                      "health":"10",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":364,
                  "y":658
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":28,
                  "name":"",
                  "properties":
                     {
@@ -484,15 +715,25 @@
                      "health":"24",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":603,
                  "y":361
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":29,
                  "name":"",
                  "properties":
                     {
@@ -502,15 +743,25 @@
                      "health":"15",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":700,
                  "y":144
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":30,
                  "name":"",
                  "properties":
                     {
@@ -520,15 +771,25 @@
                      "health":"20",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":866,
                  "y":243
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":31,
                  "name":"",
                  "properties":
                     {
@@ -538,15 +799,25 @@
                      "health":"6",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":788,
                  "y":453
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":32,
                  "name":"",
                  "properties":
                     {
@@ -556,15 +827,25 @@
                      "health":"35",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":960,
                  "y":639
                 }, 
                 {
                  "gid":8,
-                 "height":0,
+                 "height":40,
+                 "id":33,
                  "name":"",
                  "properties":
                     {
@@ -574,15 +855,25 @@
                      "health":"15",
                      "type":"enemy"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "defense":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":685,
                  "y":605
                 }, 
                 {
                  "gid":16,
-                 "height":0,
+                 "height":40,
+                 "id":34,
                  "name":"",
                  "properties":
                     {
@@ -591,15 +882,24 @@
                      "questCode":"magic-scroll",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "isQuest":"string",
+                     "questCode":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":899,
                  "y":745
                 }, 
                 {
                  "gid":16,
-                 "height":0,
+                 "height":40,
+                 "id":35,
                  "name":"",
                  "properties":
                     {
@@ -608,15 +908,24 @@
                      "questCode":"gods-helmet",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "isQuest":"string",
+                     "questCode":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":104,
-                 "y":694
+                 "width":40,
+                 "x":100,
+                 "y":691
                 }, 
                 {
                  "gid":14,
-                 "height":0,
+                 "height":40,
+                 "id":36,
                  "name":"",
                  "properties":
                     {
@@ -624,15 +933,23 @@
                      "attack":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":961,
                  "y":130
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":37,
                  "name":"",
                  "properties":
                     {
@@ -640,15 +957,23 @@
                      "health":"8",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":962,
                  "y":190
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":38,
                  "name":"",
                  "properties":
                     {
@@ -656,15 +981,23 @@
                      "health":"8",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "health":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":721,
                  "y":219
                 }, 
                 {
                  "gid":15,
-                 "height":0,
+                 "height":40,
+                 "id":39,
                  "name":"",
                  "properties":
                     {
@@ -672,15 +1005,23 @@
                      "gold":"25",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "gold":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":221,
                  "y":82
                 }, 
                 {
                  "gid":7,
-                 "height":0,
+                 "height":40,
+                 "id":40,
                  "name":"",
                  "properties":
                     {
@@ -688,15 +1029,23 @@
                      "defense":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "defense":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":519,
                  "y":657
                 }, 
                 {
                  "gid":7,
-                 "height":0,
+                 "height":40,
+                 "id":41,
                  "name":"",
                  "properties":
                     {
@@ -704,15 +1053,23 @@
                      "defense":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "defense":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":83,
                  "y":515
                 }, 
                 {
                  "gid":7,
-                 "height":0,
+                 "height":40,
+                 "id":42,
                  "name":"",
                  "properties":
                     {
@@ -720,15 +1077,23 @@
                      "defense":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "defense":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":782,
                  "y":219
                 }, 
                 {
                  "gid":7,
-                 "height":0,
+                 "height":40,
+                 "id":43,
                  "name":"",
                  "properties":
                     {
@@ -736,76 +1101,122 @@
                      "defense":"2",
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "defense":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
                  "x":753,
                  "y":92
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":47,
                  "name":"",
                  "properties":
                     {
-                     "asset":"scroll",
-                     "attack":"111",
-                     "gold":"100",
+                     "attack":100,
+                     "gold":100,
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "attack":"int",
+                     "gold":"int",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":78,
-                 "y":88
+                 "width":40,
+                 "x":77,
+                 "y":79
                 }, 
                 {
                  "gid":6,
-                 "height":0,
+                 "height":40,
+                 "id":49,
                  "name":"",
                  "properties":
                     {
                      "asset":"scroll",
-                     "attack":"111",
-                     "gold":"100",
+                     "attack":100,
+                     "gold":100,
                      "type":"item"
                     },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"int",
+                     "gold":"int",
+                     "type":"string"
+                    },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":40,
+                 "x":77,
+                 "y":79
+                }, 
+                {
+                 "gid":6,
+                 "height":40,
+                 "id":50,
+                 "name":"",
+                 "properties":
+                    {
+                     "asset":"scroll",
+                     "attack":50,
+                     "gold":50,
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "asset":"string",
+                     "attack":"int",
+                     "gold":"int",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40,
                  "x":78,
-                 "y":174
+                 "y":163
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":26,
          "x":0,
          "y":0
         }],
+ "nextobjectid":51,
  "orientation":"orthogonal",
- "properties":
-    {
-
-    },
+ "renderorder":"right-down",
+ "tiledversion":"2017.07.26",
  "tileheight":40,
  "tilesets":[
         {
+         "columns":8,
          "firstgid":1,
-         "image":"..\/images\/terrains.png",
+         "image":"..\/phaser-zenva-tut\/lesson\/M9-RPG\/18-duplicating-objects\/assets\/images\/terrains.png",
          "imageheight":80,
          "imagewidth":320,
          "margin":0,
          "name":"terrains",
-         "properties":
-            {
-
-            },
          "spacing":0,
+         "tilecount":16,
          "tileheight":40,
          "tilewidth":40
         }],
  "tilewidth":40,
+ "type":"map",
  "version":1,
  "width":26
 }

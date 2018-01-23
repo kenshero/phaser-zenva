@@ -105,20 +105,10 @@ RPG.GameState = {
 
     this.items = this.add.group()
 
-    var potion = new RPG.Item(this, 100, 150, 'potion', {health: 10})
-    this.items.add(potion)
+    this.loadItems()
 
-    var sword = new RPG.Item(this, 100, 180, 'sword', {attack: 2})
-    this.items.add(sword)
+    this.game.camera.follow(this.player)
 
-    var shield = new RPG.Item(this, 100, 210, 'shield', {defense: 2})
-    this.items.add(shield)
-
-    var chest = new RPG.Item(this, 100, 240, 'chest', {gold: 100})
-    this.items.add(chest)
-
-    var questItem = new RPG.Item(this, 100, 270, 'scroll', {isQuest: true, questCode: 'magic-scroll'})
-    this.items.add(questItem)
     this.initGUI();
   },
   gameOver: function() {
@@ -170,6 +160,28 @@ RPG.GameState = {
     this.goldLabel.text = this.player.data.gold
     this.attackLabel.text = this.player.data.attack
     this.defenseLabel.text = this.player.data.defense
+  },
+  findObjectsByType: function(targetType, tilemap, layer) {
+    var result = []
+
+    tilemap.objects[layer].forEach(function(element){
+      if(element.properties.type == targetType) {
+        element.y -= tilemap.tileHeight / 2
+        element.x -= tilemap.tileHeight / 2
+        result.push(element)
+      }
+    }, this)
+
+    return result
+  },
+  loadItems: function() {
+    var elementsArr = this.findObjectsByType('item', this.map, 'objectsLayer')
+    var elementObj
+
+    elementsArr.forEach(function(element){
+      elementObj = new RPG.Item(this, element.x, element.y, element.properties.asset, element.properties)
+      this.items.add(elementObj)
+    }, this)
   }
 
 };
