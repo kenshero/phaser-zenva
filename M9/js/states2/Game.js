@@ -107,6 +107,12 @@ RPG.GameState = {
 
     this.loadItems()
 
+    this.enemies = this.add.group()
+    this.enemy = new RPG.Enemy(this, 200, 60, 'monster', {attack: 10, health: 20, defense: 5})
+    this.enemies.add(this.enemy)
+
+    this.battle = new RPG.Battle(this.game)
+
     this.game.camera.follow(this.player)
 
     this.initGUI();
