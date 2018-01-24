@@ -26,6 +26,8 @@ RPG.GameState = {
     this.game.physics.arcade.collide(this.player, this.collisionLayer)
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this)
 
+    this.game.physics.arcade.collide(this.player, this.enemies, this.attack, null, this)
+
     this.player.body.velocity.x = 0
     this.player.body.velocity.y = 0
 
@@ -188,6 +190,24 @@ RPG.GameState = {
       elementObj = new RPG.Item(this, element.x, element.y, element.properties.asset, element.properties)
       this.items.add(elementObj)
     }, this)
+  },
+  attack: function(player, enemy) {
+    this.battle.attack(player, enemy)
+    this.battle.attack(enemy, player)
+
+    if(player.body.touching.up) {
+      player.y += 20
+    }
+    if(player.body.touching.down) {
+      player.y -= 20
+    }
+    if(player.body.touching.left) {
+      player.x += 20
+    }
+    if(player.body.touching.right) {
+      player.x -= 20
+    }
+
   }
 
 };
