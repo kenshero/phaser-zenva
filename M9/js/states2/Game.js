@@ -140,6 +140,7 @@ RPG.GameState = {
   },
   collect: function(player, item) {
     this.player.collectItem(item)
+    this.player.refresHealthbar()
   },
   showPlayerIcons: function() {
     this.goldIcon = this.add.sprite(10, 10, 'coin')
