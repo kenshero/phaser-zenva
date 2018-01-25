@@ -31,26 +31,28 @@ RPG.GameState = {
     this.player.body.velocity.x = 0
     this.player.body.velocity.y = 0
 
-    if(this.cursors.left.isDown || this.player.btnsPressed.left || this.player.btnsPressed.upleft || this.player.btnsPressed.downleft) {
-      this.player.body.velocity.x = -this.PLAYER_SPEED
-      this.player.scale.setTo(1, 1)
-    }
+    if(!this.uiBlocked) {
+      if(this.cursors.left.isDown || this.player.btnsPressed.left || this.player.btnsPressed.upleft || this.player.btnsPressed.downleft) {
+        this.player.body.velocity.x = -this.PLAYER_SPEED
+        this.player.scale.setTo(1, 1)
+      }
 
-    if(this.cursors.right.isDown || this.player.btnsPressed.right || this.player.btnsPressed.upright || this.player.btnsPressed.downright) {
-      this.player.body.velocity.x = this.PLAYER_SPEED
-      this.player.scale.setTo(-1, 1)
-    }
+      if(this.cursors.right.isDown || this.player.btnsPressed.right || this.player.btnsPressed.upright || this.player.btnsPressed.downright) {
+        this.player.body.velocity.x = this.PLAYER_SPEED
+        this.player.scale.setTo(-1, 1)
+      }
 
-    if(this.cursors.up.isDown || this.player.btnsPressed.up || this.player.btnsPressed.upright || this.player.btnsPressed.upleft) {
-      this.player.body.velocity.y = -this.PLAYER_SPEED
-    }
+      if(this.cursors.up.isDown || this.player.btnsPressed.up || this.player.btnsPressed.upright || this.player.btnsPressed.upleft) {
+        this.player.body.velocity.y = -this.PLAYER_SPEED
+      }
 
-    if(this.cursors.down.isDown || this.player.btnsPressed.down || this.player.btnsPressed.downright || this.player.btnsPressed.downleft) {
-      this.player.body.velocity.y = this.PLAYER_SPEED
-    }
+      if(this.cursors.down.isDown || this.player.btnsPressed.down || this.player.btnsPressed.downright || this.player.btnsPressed.downleft) {
+        this.player.body.velocity.y = this.PLAYER_SPEED
+      }
 
-    if(this.game.input.activePointer.isUp) {
-      this.game.onscreenControls.stopMovement()
+      if(this.game.input.activePointer.isUp) {
+        this.game.onscreenControls.stopMovement()
+      }
     }
 
     if(this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0) {
@@ -162,6 +164,32 @@ RPG.GameState = {
     this.defenseLabel.fixedToCamera = true
 
     this.refreshStats()
+
+    this.questIcon = this.add.sprite(this.game.width - 30, 10, 'quest')
+    this.questIcon.fixedToCamera = true
+
+    this.overlay = this.add.bitmapData(this.game.width, this.game.height)
+    this.overlay.ctx.fillStyle = '#000'
+    this.overlay.ctx.fillRect(0, 0, this.game.width, this.game.height)
+
+    this.questsPanelGroup = this.add.group()
+    this.questsPanelGroup.y = this.game.height
+    this.questsPanel = new Phaser.Sprite(this.game, 0, 0, this.overlay)
+    this.questsPanel.alpha = 0.8
+    this.questsPanel.fixedToCamera = true
+    this.questsPanelGroup.add(this.questsPanel)
+
+    style = {font: '14px Arial', fill: '#fff'}
+    this.questInfo = new Phaser.Text(this.game, 50, 50, '', style)
+    this.questInfo.fixedToCamera = true
+    this.questsPanelGroup.add(this.questInfo)
+
+    this.questIcon.inputEnabled = true
+    this.questIcon.events.onInputDown.add(this.showQuest, this)
+
+    this.questsPanel.inputEnabled = true
+    this.questsPanel.events.onInputDown.add(this.hideQuests, this)
+
   },
   refreshStats: function() {
     this.goldLabel.text = this.player.data.gold
@@ -220,6 +248,30 @@ RPG.GameState = {
       elementObj = new RPG.Enemy(this, element.x, element.y, element.properties.asset, element.properties)
       this.enemies.add(elementObj)
     }, this)
+  },
+  showQuest: function() {
+    this.uiBlocked = true
+
+    var showPanelTween = this.add.tween(this.questsPanelGroup)
+    showPanelTween.to({y: 0}, 150)
+
+    showPanelTween.onComplete.add(function(){
+      var questsText = "QUESTS\n"
+
+      this.player.data.quests.forEach(function(quest){
+        questsText += quest.name + (quest.isCompleted ? '- DONE': '') + '\n'
+      }, this)
+
+      this.questInfo.text = questsText
+    }, this)
+
+    showPanelTween.start()
+  },
+  hideQuests: function() {
+    this.questsPanelGroup.y = this.game.height
+    this.questInfo.text = ''
+
+    this.uiBlocked = false
   }
 
 };
