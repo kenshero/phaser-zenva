@@ -33,6 +33,32 @@ HTown.GameState = {
     this.initGui()
   },
   update: function() {
+    if(!this.isDraggingMapBlock) {
+      if(!this.isDraggingMap) {
+        if(this.game.input.activePointer.isDown) {
+          this.isDraggingMap = true
+
+          this.startDragPoint = {}
+          this.startDragPoint.x = this.game.input.activePointer.position.x
+          this.startDragPoint.y = this.game.input.activePointer.position.y
+        }
+      } else {
+        this.endDragPoint = {}
+        this.endDragPoint.x = this.game.input.activePointer.position.x
+        this.endDragPoint.y = this.game.input.activePointer.position.y
+
+        this.game.camera.x += this.startDragPoint.x - this.endDragPoint.x
+        this.game.camera.y += this.startDragPoint.y - this.endDragPoint.y
+
+        this.startDragPoint.x = this.game.input.activePointer.position.x
+        this.startDragPoint.y = this.game.input.activePointer.position.y
+
+        if(this.game.input.activePointer.isUp) {
+          this.isDraggingMap = false
+        }
+
+      }
+    }
 
   },
   simulationStep: function() {
@@ -68,6 +94,26 @@ HTown.GameState = {
     this.jobsLabel = this.add.text(315, 15, '0', style)
     this.jobsLabel.fixedToCamera = true
 
+    this.buttonData = JSON.parse(this.game.cache.getText('buttonData'))
+
+    this.buttons = this.add.group()
+
+    var button
+    this.buttonData.forEach(function(element, index) {
+      button = new Phaser.Button(
+        this.game,
+        this.game.width - 60 - 60 * index,
+        this.game.height - 60,
+        element.btnAsset,
+        this.clickBuildBtn,
+        this
+      )
+      button.fixedToCamera = true
+      this.buttons.add(button)
+      button.buildingData = element
+    }, this)
+
+
     this.refreshStats()
 
   },
@@ -76,6 +122,9 @@ HTown.GameState = {
     this.foodLabel.text = Math.round(this.town.stats.food)
     this.populationLabel.text = Math.round(this.town.stats.population) + '/' + Math.round(this.town.stats.housing)
     this.jobsLabel.text = Math.round(this.town.stats.jobs)
+  },
+  clickBuildBtn: function(button) {
+    console.log(button);
   }
 
 };
