@@ -33,7 +33,7 @@ HTown.GameState = {
     this.initGui()
   },
   update: function() {
-    if(!this.isDraggingMapBlock) {
+    if(!this.isDraggingMapBlocked) {
       if(!this.isDraggingMap) {
         if(this.game.input.activePointer.isDown) {
           this.isDraggingMap = true
@@ -58,6 +58,45 @@ HTown.GameState = {
         }
 
       }
+    }
+
+    if(this.isBuildingBtnActive && this.game.input.activePointer.isDown) {
+      this.isDraggingMapBlocked = true
+      this.isDraggingBuilding = true
+    }
+
+    if(this.isDraggingBuilding) {
+      this.startDragPoint.x = this.game.input.activePointer.position.x
+      this.startDragPoint.y = this.game.input.activePointer.position.y
+    }
+
+    if(this.isDraggingBuilding) {
+      var pointerWX = this.game.input.activePointer.worldX
+      var pointerWY = this.game.input.activePointer.worldY
+
+      if(!this.shadowBuilding || !this.shadowBuilding.alive) {
+        this.shadowBuilding = this.add.sprite(pointerWX, pointerWY, this.selectedBuilding.asset)
+        this.shadowBuilding.alpha = 0.7
+        this.shadowBuilding.anchor.setTo(0.5)
+
+        //enable physics
+        this.game.physics.arcade.enable(this.shadowBuilding)
+      }
+
+      this.shadowBuilding.x = pointerWX
+      this.shadowBuilding.y = pointerWY
+    }
+
+    if(this.isDraggingBuilding && this.game.input.activePointer.isUp) {
+      if(this.canBuild()) {
+        this.town.stats.money -= this.selectedBuilding.cost
+        this.createBuilding(
+          this.game.input.activePointer.worldX,
+          this.game.input.activePointer.worldY,
+          this.selectedBuilding
+        )
+      }
+      this.clearSelection()
     }
 
   },
@@ -124,7 +163,36 @@ HTown.GameState = {
     this.jobsLabel.text = Math.round(this.town.stats.jobs)
   },
   clickBuildBtn: function(button) {
-    console.log(button);
+    this.clearSelection()
+
+    if(this.town.stats.money >= button.buildingData.cost) {
+      button.alpha = 0.5
+      this.selectedBuilding = button.buildingData
+      this.isBuildingBtnActive = true
+    }
+  },
+  clearSelection: function() {
+    this.isDraggingMapBlocked = false
+    this.isDraggingMap = false
+    this.selectedBuilding = false
+    this.isBuildingBtnActive = false
+    this.isDraggingBuilding = false
+
+    if(this.shadowBuilding) {
+      this.shadowBuilding.kill()
+    }
+
+    this.refreshStats()
+
+    this.buttons.setAll('alpha', 1 )
+  },
+  createBuilding: function(x, y, data) {
+    var newBuilding = new HTown.Building(this, x, y, data)
+    this.buildings.add(newBuilding)
+  },
+  canBuild: function() {
+    var isOverlappingBuildings = this.game.physics.arcade.overlap(this.shadowBuilding, this.buildings)
+    return !isOverlappingBuildings
   }
 
 };
