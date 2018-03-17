@@ -74,3 +74,63 @@ Match3.Board.prototype.consoleLog = function() {
   }
   console.log(prettyString)
 }
+
+Match3.Board.prototype.swap = function(source, target) {
+  var temp = this.grid[target.row][target.col]
+  this.grid[target.row][target.col] = this.grid[source.row][source.col]
+  this.grid[source.row][source.col] = temp
+}
+
+Match3.Board.prototype.checkAdjacent = function(source, target) {
+  var diffRow = Math.abs(source.row - target.row)
+  var diffCol = Math.abs(source.col - target.col)
+
+  var isAdjacent = (diffRow == 1 && diffRow == 0) || (diffRow == 0 && diffCol == 1)
+  return isAdjacent
+}
+
+Match3.Board.prototype.isChained = function(block) {
+  var isChained = false
+  var variation = this.grid[block.row][block.col]
+  var row = block.row
+  var col = block.col
+
+  //left
+  if(variation == this.grid[row][col - 1] && variation == this.grid[row][col - 2]) {
+    isChained = true
+  }
+
+  //right
+  if(variation == this.grid[row][col + 1] && variation == this.grid[row][col + 2]) {
+    isChained = true
+  }
+
+  //up
+  if(this.grid[row-2]) {
+    if(variation == this.grid[row - 1][col] && variation == this.grid[row - 2][col]) {
+      isChained = true
+    }
+  }
+
+  //down
+  if(this.grid[row+2]) {
+    if(variation == this.grid[row + 1][col] && variation == this.grid[row + 2][col]) {
+      isChained = true
+    }
+  }
+
+  //center horizontal
+  if(variation == this.grid[row][col - 1] && variation == this.grid[row][col + 1]) {
+    isChained = true
+  }
+
+  //center vertical
+  if(this.grid[row+1] && this.grid[row-1]) {
+    if(variation == this.grid[row+1][col] && variation == this.grid[row-1][col]) {
+      isChained = true
+    }
+  }
+
+  return isChained
+
+}
