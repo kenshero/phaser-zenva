@@ -17,5 +17,6 @@ Match3.GameState = {
       this.NUM_COLS,
       this.NUM_VARIATIONS,
     )
+    this.board.consoleLog()
   }
 }
