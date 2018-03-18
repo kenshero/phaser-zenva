@@ -10,7 +10,7 @@ Match3.GameState = {
   },
   create: function() {
     this.background = this.add.sprite(0, 0, 'background')
-
+    this.blocks = this.add.group()
     this.board = new Match3.Board(
       this,
       this.NUM_ROWS,
@@ -18,5 +18,18 @@ Match3.GameState = {
       this.NUM_VARIATIONS,
     )
     this.board.consoleLog()
+  },
+  createBlock: function(x, y, data) {
+    var block = this.blocks.getFirstExists(false)
+
+    if(!block) {
+      block = new Match3.Block(this, x, y, data)
+      this.blocks.add(block)
+    } else {
+      block.reset(x, y, data)
+    }
+
+    return block
   }
+
 }

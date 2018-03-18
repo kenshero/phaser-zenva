@@ -157,3 +157,42 @@ Match3.Board.prototype.clearChains = function() {
     this.grid[block.row][block.col] = 0
   }, this)
 }
+
+Match3.Board.prototype.dropBlock = function(sourceRow, targetRow, col) {
+  this.grid[targetRow][col] = this.grid[sourceRow][col]
+  this.grid[sourceRow][col] = 0
+}
+
+Match3.Board.prototype.dropReserveBlock = function(sourceRow, targetRow, col) {
+  this.grid[targetRow][col] = this.reserveGrid[sourceRow][col]
+  this.reserveGrid[sourceRow][col] = 0
+}
+
+Match3.Board.prototype.updateGrid = function() {
+  var i, j, k, foundBlock
+
+  for(i = this.rows - 1; i >= 0; i--) {
+    for(j = 0; j <this.cols; j++) {
+      if(this.grid[i][j] == 0) {
+        foundBlock = false
+
+        for(k = i; k >= 0; k--) {
+          if(this.grid[k][j] > 0) {
+            this.dropBlock(k, i, j)
+            foundBlock = true
+            break
+          }
+        }
+        if(!foundBlock) {
+          for(k = this.RESERVE_ROW - 1; k >= 0; k--) {
+            if(this.reserveGrid[k][j] > 0) {
+              this.dropReserveBlock(k, i, j)
+              break
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
