@@ -39,6 +39,11 @@ Match3.Board.prototype.populatedGrid = function() {
       this.grid[i][j] = variation
     }
   }
+
+  var chains = this.findAllChains()
+  if(chains.length > 0) {
+    this.populatedGrid()
+  }
 }
 
 Match3.Board.prototype.populatedReserveGrid = function() {
@@ -79,15 +84,23 @@ Match3.Board.prototype.swap = function(source, target) {
   var temp = this.grid[target.row][target.col]
   this.grid[target.row][target.col] = this.grid[source.row][source.col]
   this.grid[source.row][source.col] = temp
+
+  var tempPos = {row: source.row, col: source.col}
+  source.row = target.row
+  source.col = target.col
+
+  target.row = tempPos.row
+  target.col = tempPos.col
 }
 
 Match3.Board.prototype.checkAdjacent = function(source, target) {
-  var diffRow = Math.abs(source.row - target.row)
-  var diffCol = Math.abs(source.col - target.col)
+  var diffRow = Math.abs(source.row - target.row);
+  var diffCol = Math.abs(source.col - target.col);
 
-  var isAdjacent = (diffRow == 1 && diffRow == 0) || (diffRow == 0 && diffCol == 1)
-  return isAdjacent
-}
+  var isAdjacent = (diffRow == 1 && diffCol === 0) || (diffRow == 0 && diffCol === 1);
+  return isAdjacent;
+};
+
 
 Match3.Board.prototype.isChained = function(block) {
   var isChained = false
@@ -155,39 +168,52 @@ Match3.Board.prototype.clearChains = function() {
 
   chainedBlocks.forEach(function(block){
     this.grid[block.row][block.col] = 0
+
+    this.state.getBlockFromColRow(block).kill()
+
   }, this)
 }
 
 Match3.Board.prototype.dropBlock = function(sourceRow, targetRow, col) {
   this.grid[targetRow][col] = this.grid[sourceRow][col]
   this.grid[sourceRow][col] = 0
+
+  this.state.dropBlock(sourceRow, targetRow, col)
 }
 
-Match3.Board.prototype.dropReserveBlock = function(sourceRow, targetRow, col) {
-  this.grid[targetRow][col] = this.reserveGrid[sourceRow][col]
-  this.reserveGrid[sourceRow][col] = 0
-}
+Match3.Board.prototype.dropReserveBlock = function(sourceRow, targetRow, col){
+  this.grid[targetRow][col] = this.reserveGrid[sourceRow][col];
+  this.reserveGrid[sourceRow][col] = 0;
 
-Match3.Board.prototype.updateGrid = function() {
-  var i, j, k, foundBlock
+  this.state.dropReserveBlock(sourceRow, targetRow, col);
+};
 
-  for(i = this.rows - 1; i >= 0; i--) {
-    for(j = 0; j <this.cols; j++) {
-      if(this.grid[i][j] == 0) {
-        foundBlock = false
 
-        for(k = i; k >= 0; k--) {
+Match3.Board.prototype.updateGrid = function(){
+  var i, j, k, foundBlock;
+
+  //go through all the rows, from the bottom up
+  for(i = this.rows - 1; i >= 0; i--){
+    for(j = 0; j < this.cols; j++) {
+      //if the block if zero, then get climb up to get a non-zero one
+      if(this.grid[i][j] === 0) {
+        foundBlock = false;
+
+        //climb up in the main grid
+        for(k = i - 1; k >= 0; k--) {
           if(this.grid[k][j] > 0) {
-            this.dropBlock(k, i, j)
-            foundBlock = true
-            break
+            this.dropBlock(k, i, j);
+            foundBlock = true;
+            break;
           }
         }
+
         if(!foundBlock) {
+          //climb up in the reserve grid
           for(k = this.RESERVE_ROW - 1; k >= 0; k--) {
             if(this.reserveGrid[k][j] > 0) {
-              this.dropReserveBlock(k, i, j)
-              break
+              this.dropReserveBlock(k, i, j);
+              break;
             }
           }
         }
@@ -195,4 +221,6 @@ Match3.Board.prototype.updateGrid = function() {
     }
   }
 
-}
+  //repopulate the reserve
+  this.populatedReserveGrid();
+};
