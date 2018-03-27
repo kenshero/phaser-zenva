@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+		<title>Learn Game Development at ZENVA.com</title>
+
+		<style>
+		  body {
+		  	background-color: black;
+		    padding: 0px;
+		    margin: 0px;
+		  }
+
+/*		  example using a Google Font: http://www.html5gamedevs.com/topic/4225-how-do-you-use-a-webfont-in-phaser-exactly/?p=74603
+*/
+		  @font-face {
+		  	font-family: 'Prstart';
+		  	src: url('assets/fonts/prstart.ttf');
+		  }
+
+		  .fontPreload {
+		  	font-family: Prstart;
+		  	position:absolute;
+		  	left:-100px;
+		  }
+
+
+	  </style>
+	</head>
+
+	<body>
+		<div class="fontPreload">.</div>
+		<script type="text/javascript" src="js/phaser.js"></script>
+		<script type="text/javascript" src="js/states/Boot.js"></script>
+		<script type="text/javascript" src="js/states/Preload.js"></script>
+		<script type="text/javascript" src="js/states/Game2.js"></script>
+		<script type="text/javascript" src="js/shatters/Thing.js"></script>
+		<script type="text/javascript" src="js/shatters/Item.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
