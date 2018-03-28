@@ -7,6 +7,12 @@ PointClk.Item = function(state, x, y, data) {
   this.state = state;
   this.anchor.setTo(0.5);
 
+  this.data = data
+
+  //
+  this.inputEnabled = true
+  this.input.pixelPerfectClick = true
+  this.events.onInputDown.add(this.state.selectItem, this.state)
 };
 
 PointClk.Item.prototype = Object.create(Phaser.Sprite.prototype);
