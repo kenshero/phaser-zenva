@@ -9,6 +9,14 @@ HexGame.Board = function(state, grid) {
   this.rows = grid.length;
   this.cols = grid[0].length;
 
+  this.terrains = [
+    {asset: 'grass'},
+    {asset: 'water', blocked: true},
+    {asset: 'rocks'},
+    {asset: 'grasstrees'},
+    {asset: 'grasstrees2'},
+  ]
+
   var row, col, tile, x, y
   for(row = 0; row < this.rows; row++) {
     for(col = 0; col < this.cols; col++) {
@@ -18,7 +26,16 @@ HexGame.Board = function(state, grid) {
         x = this.state.MARGIN_X + col * this.state.TILE_W + this.state.TILE_W/2
       }
       y = this.state.MARGIN_Y + row * this.state.TILE_H * 3/4
-      tile = new Phaser.Sprite(this.game, x, y, 'grass')
+      tile = new Phaser.Sprite(this.game, x, y, this.terrains[this.grid[row][col]].asset)
+
+      tile.row = row
+      tile.col = col
+      tile.terrainsAsset = this.terrains[this.grid[row][col]].asset
+      tile.blocked = this.terrains[this.grid[row][col]].blocked
+
+      tile.inputEnabled = true
+      tile.input.pixelPerfectClick = true
+
       this.add(tile)
     }
   }
