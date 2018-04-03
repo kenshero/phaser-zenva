@@ -36,6 +36,13 @@ HexGame.Board = function(state, grid) {
       tile.inputEnabled = true
       tile.input.pixelPerfectClick = true
 
+      // tile.events.onInputDown.add(function(tile){
+      //   var adj = this.getAdjacent(tile, true)
+      //   adj.forEach(function(t) {
+      //     t.alpha = 0.3
+      //   }, this)
+      // }, this)
+
       this.add(tile)
     }
   }
@@ -67,4 +74,49 @@ HexGame.Board.prototype.getXYFromRowCol = function(row, col) {
   pos.y = this.state.MARGIN_Y + row * this.state.TILE_H * 3/4 + this.state.TILE_H/2
 
   return pos
+}
+
+HexGame.Board.prototype.getAdjacent = function(tile, rejectBlocked) {
+  var adjacentTiles = [];
+  var row = tile.row
+  var col = tile.col
+
+  var relativePositions = []
+
+  if(row %2 === 0) {
+    relativePositions = [
+      {r: -1, c: 0},
+      {r: -1, c: -1},
+      {r: 0, c: -1},
+      {r: 0, c: 1},
+      {r: 1, c: 0},
+      {r: 1, c: -1}
+    ]
+  } else {
+    relativePositions = [
+      {r: -1, c: 0},
+      {r: -1, c: 1},
+      {r: 0, c: -1},
+      {r: 0, c: 1},
+      {r: 1, c: 0},
+      {r: 1, c: 1}
+    ]
+  }
+
+  var adjTile;
+
+  relativePositions.forEach(function(pos){
+    //check that we are not on the edge of the map
+    if((row + pos.r >= 0) && (row + pos.r < this.rows) && (col + pos.c >= 0) && (col + pos.c < this.cols)) {
+      //get adjacent tile
+      adjTile = this.getFromRowCol(row + pos.r, col + pos.c);
+
+      if(!rejectBlocked || !adjTile.blocked) {
+        adjacentTiles.push(adjTile);
+      }
+    }
+  }, this);
+
+  return adjacentTiles;
+
 }
