@@ -17,6 +17,8 @@ HexGame.GameState = {
     this.enemyUnits = this.add.group()
     this.initUnits()
 
+    this.newTurn()
+
   },
   initUnits: function() {
     this.playerUnitsData = JSON.parse(this.game.cache.getText('playerUnits'))
@@ -42,5 +44,51 @@ HexGame.GameState = {
     this.board.forEach(function(tile){
       tile.events.onInputDown.removeAll()
     }, this)
+  },
+  newTurn: function() {
+    this.allUnits = []
+
+    this.playerUnits.forEachAlive(function(unit) {
+      this.allUnits.push(unit)
+    }, this)
+
+    this.enemyUnits.forEachAlive(function(unit) {
+      this.allUnits.push(unit)
+    }, this)
+
+    this.shuffle(this.allUnits)
+
+    this.currUnitIndex = 0
+    this.prepareNextUnit()
+
+  },
+  shuffle: function(array) {
+    var counter = array.length, temp, index
+
+    while(counter > 0) {
+      index = Math.floor(Math.random() * counter)
+
+      counter --
+
+      temp = array[counter]
+      array[counter] = array[index]
+      array[index] = temp
+    }
+
+    return array
+  },
+  prepareNextUnit: function() {
+    if(this.currUnitIndex < this.allUnits.length) {
+      var unit = this.allUnits[this.currUnitIndex]
+      this.currUnitIndex++
+
+      if(unit.alive) {
+        unit.showMovementOptions()
+      } else {
+        this.prepareNextUnit()
+      }
+    } else {
+      this.newTurn()
+    }
   }
 };

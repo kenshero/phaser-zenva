@@ -52,7 +52,47 @@ HexGame.Unit.prototype.moveUnit = function(tile) {
     this.state.uiBlocked = false
     this.row = tile.row
     this.col = tile.col
+
+    this.checkBattle()
+    this.state.prepareNextUnit()
+
   }, this)
   unitMovement.start()
 
+}
+
+HexGame.Unit.prototype.attack = function(attacked) {
+  var attacker = this
+
+  var damageAttacked = Math.max(0, attacker.data.attack * Math.random() - attacked.data.defense * Math.random());
+  var damageAttacker = Math.max(0, attacked.data.attack * Math.random() - attacker.data.defense * Math.random());
+
+  attacked.data.health -= damageAttacked
+  attacker.data.health -= damageAttacker
+
+  if(attacked.data.health <= 0) {
+    attacked.kill()
+  }
+  if(attacker.data.health <= 0) {
+    attacker.kill()
+  }
+}
+
+HexGame.Unit.prototype.checkBattle = function() {
+  var rivalUnits = this.isPlayer ? this.state.enemyUnits : this.state.playerUnits
+  var fightUnit
+
+  rivalUnits.forEachAlive(function(unit) {
+    if(this.row === unit.row && this.col == unit.col) {
+      console.log("both are in the same cell -- fight")
+      fightUnit = unit
+    }
+  }, this)
+
+  if(fightUnit) {
+    while(this.data.health >= 0 && fightUnit.data.health >= 0) {
+      this.attack(fightUnit)
+    }
+    console.log("battle end")
+  }
 }
