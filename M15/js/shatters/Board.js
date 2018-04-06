@@ -14,7 +14,6 @@ DunCrawl.Board = function(state, data) {
       tile = new Phaser.Sprite(this.game, j * this.tileSize, i * this.tileSize, 'rockTile')
       tile.row = i
       tile.col = j
-      console.log("asdasd")
       this.state.backgroundTiles.add(tile)
 
       tile.inputEnabled = true
@@ -28,7 +27,7 @@ DunCrawl.Board = function(state, data) {
 
 }
 
-DunCrawl.Board.prototype.getSurrounding = function() {
+DunCrawl.Board.prototype.getSurrounding = function(tile) {
   var adjacentTiles = []
   var relativePositions = [
     {r: 1, c: -1},
@@ -44,11 +43,18 @@ DunCrawl.Board.prototype.getSurrounding = function() {
   var relRow, relCol
   relativePositions.forEach(function(relPos){
     relRow = tile.row + relPos.r
-    relCol = tile.col + relCol.c
+    relCol = tile.col + relPos.c
 
     if(relRow >= 0 && relRow < this.rows && relCol >= 0 && relCol < this.cols) {
       adjacentTiles.push({row: relRow, col: relCol})
     }
   }, this)
   return adjacentTiles
+}
+
+DunCrawl.Board.prototype.getXYFromRowCol = function(cell) {
+  return {
+    x: cell.col * this.tileSize + this.tileSize/2,
+    y: cell.row * this.tileSize + this.tileSize/2
+  }
 }
