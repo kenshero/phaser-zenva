@@ -24,6 +24,7 @@ DunCrawl.GameState = {
     this.backgroundTiles = this.add.group()
 
     this.mapElements = this.add.group()
+    this.darkTiles = this.add.group()
 
     this.levelData = JSON.parse(this.game.cache.getText('gameBaseData'))
 
@@ -94,6 +95,10 @@ DunCrawl.GameState = {
       align: 'left'
     }
     this.levelLabel = this.add.text(45, this.game.height - this.TILE_SIZE/2, '', style)
+
+    this.keyIcon = this.add.sprite(this.game.width - 180, y - 10 + this.TILE_SIZE/2, 'key')
+    this.keyIcon.scale.setTo(0.6)
+
     this.refreshStats()
   },
   refreshStats: function() {
@@ -103,6 +108,7 @@ DunCrawl.GameState = {
     this.goldLabel.text = Math.ceil(this.playerStats.gold)
 
     this.levelLabel.text = 'Floor' + this.currentLevel
+    this.keyIcon.visible = this.playerStats.hasKey
   }
 
 };

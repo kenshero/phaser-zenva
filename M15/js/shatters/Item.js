@@ -14,7 +14,7 @@ DunCrawl.Item = function(state, data) {
   this.data = data;
 
   this.anchor.setTo(0.5);
-
+  this.visible = false
   this.inputEnabled = true
   this.events.onInputDown.add(this.collect, this)
 
@@ -31,5 +31,16 @@ DunCrawl.Item.prototype.collect = function() {
     this.state.playerStats.gold += this.data.gold
     this.state.refreshStats()
     this.kill()
+  }
+  else if(this.data.type == 'key') {
+    this.state.playerStats.hasKey = true
+    this.state.refreshStats()
+    this.kill()
+  } else if(this.data.type == 'exit') {
+    if(this.state.playerStats.hasKey) {
+      this.state.playerStats.hasKey = false
+      this.state.nextLevel()
+      return
+    }
   }
 }
