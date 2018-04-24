@@ -1,0 +1,55 @@
+{
+    "assets": {
+        "background_image": {"type": "image", "source": "assets/images/background.png"}
+    },
+    "groups": [
+        "background",
+        "hud",
+        "menu_items"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "background",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "background_image",
+                "group": "background"
+            }
+        },
+        "title": {
+            "type": "title",
+            "position": {"x": 0.5, "y": 0.3},
+            "properties": {
+                "text": "Fruit Ninja",
+                "style": {
+                    "font": "72px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "game_item": {
+            "type": "start_state_item",
+            "position": {"x": 0.5, "y": 0.6},
+            "properties": {
+                "text": "Play",
+                "style": {"font": "32px Arial", "fill": "#FFF"},
+                "group": "menu_items",
+                "level_file": "assets/levels/level1.json",
+                "state_name": "GameState"
+            }
+        },
+        "store_item": {
+            "type": "start_state_item",
+            "position": {"x": 0.5, "y": 0.7},
+            "properties": {
+                "text": "Store",
+                "style": {"font": "32px Arial", "fill": "#FFF"},
+                "group": "menu_items",
+                "level_file": "assets/levels/store.json",
+                "state_name": "StoreState"
+            }
+        }
+    }
+}

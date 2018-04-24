@@ -1,0 +1,107 @@
+{
+    "world": {"origin_x": 0, "origin_y": 0, "width": 1200, "height": 600},
+    "assets": {
+        "particle_image": {"type": "image", "source": "assets/images/particle.png"},
+        "sword_image": {"type": "image", "source": "assets/images/sword.png"},
+        "bomb_image": {"type": "image", "source": "assets/images/bomb.png"},
+        "background_image": {"type": "image", "source": "assets/images/background.png"},
+        "fruits_spritesheet": {"type": "spritesheet", "source": "assets/images/fruits.png", "frame_width": 28, "frame_height": 28}
+    },
+    "groups": [
+        "background",
+        "spawners",
+        "cuts",
+        "fruits",
+        "special_fruits",
+        "bombs",
+        "hud"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "background",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "background_image",
+                "group": "background"
+            }
+        },
+        "score": {
+            "type": "score",
+            "position": {"x": 0.05, "y": 0.05},
+            "properties": {
+                "text": "Fruits: ", 
+                "style": {
+                    "font": "48px Arial", 
+                    "fill": "#fff"
+                },
+                "group": "hud"
+            }
+        },
+        "lives": {
+            "type": "lives",
+            "position": {"x": 0.8, "y": 0.05},
+            "properties": {
+                "texture": "sword_image", 
+                "group": "hud", 
+                "lives": 3, 
+                "lives_spacing": 50
+            }
+        },
+        "fruit_spawner": {
+            "type": "fruit_spawner",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "",
+                "group": "spawners",
+                "pool": "fruits",
+                "spawn_time": {"min": 1, "max": 3},
+                "velocity_x": {"min": -100, "max": 100},
+                "velocity_y": {"min": 850, "max": 1000},
+                "frames": [20, 21, 23, 35, 38]
+            }
+        },
+        "bomb_spawner": {
+            "type": "bomb_spawner",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "",
+                "group": "spawners",
+                "pool": "bombs",
+                "spawn_time": {"min": 1, "max": 3},
+                "velocity_x": {"min": -100, "max": 100},
+                "velocity_y": {"min": 850, "max": 1000}
+            }
+        },
+        "special_fruit_spawner": {
+            "type": "special_fruit_spawner",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "",
+                "group": "spawners",
+                "pool": "special_fruits",
+                "spawn_time": {"min": 5, "max": 10},
+                "velocity_x": {"min": -100, "max": 100},
+                "velocity_y": {"min": 850, "max": 1000}
+            }
+        },
+        "leaderboard": {
+            "type": "leaderboard",
+            "position": {"x": 0.5, "y": 0.5},
+            "properties": {
+                "texture": "",
+                "group": "hud",
+                "number_of_scores": 5,
+                "text_properties": {
+                    "text": "",
+                    "group": "hud",
+                    "style": {
+                        "font": "32px Arial", 
+                        "fill": "#fff"
+                    },
+                    "anchor": {"x": 0.5, "y": 0.5}
+                },
+                "scores_spacing": 50
+            }
+        }
+    }
+}

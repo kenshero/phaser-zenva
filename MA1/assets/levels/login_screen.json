@@ -1,0 +1,81 @@
+{
+    "assets": {
+        "background_image": {"type": "image", "source": "assets/images/background.png"},
+        "input_box_image": {"type": "image", "source": "assets/images/input_box.png"},
+        "login_button_image": {"type": "image", "source": "assets/images/login_button.png"}
+    },
+    "groups": [
+        "background",
+        "player_inputs",
+        "hud"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "background",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "background_image",
+                "group": "background"
+            }
+        },
+        "title": {
+            "type": "title",
+            "position": {"x": 0.5, "y": 0.3},
+            "properties": {
+                "text": "Fruit Ninja",
+                "style": {
+                    "font": "72px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "email_input": {
+            "type": "player_input",
+            "position": {"x": 0.5, "y": 0.5},
+            "properties": {
+                "texture": "input_box_image",
+                "group": "player_inputs",
+                "text_properties": {
+                    "text": "",
+                    "style": {
+                        "font": "32px Arial", 
+                        "fill": "#000"
+                    },
+                    "group": "hud",
+                    "anchor": {"x": 0.5, "y": 0.5}
+                },
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "password_input": {
+            "type": "player_input",
+            "position": {"x": 0.5, "y": 0.7},
+            "properties": {
+                "texture": "input_box_image",
+                "group": "player_inputs",
+                "text_properties": {
+                    "text": "",
+                    "style": {
+                        "font": "32px Arial", 
+                        "fill": "#000"
+                    },
+                    "group": "hud",
+                    "anchor": {"x": 0.5, "y": 0.5}
+                },
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "login_button": {
+            "type": "button",
+            "position": {"x": 0.5, "y": 0.9},
+            "properties": {
+                "texture": "login_button_image",
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5},
+                "callback": "attempt_login"
+            }
+        }
+    }
+}

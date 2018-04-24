@@ -1,0 +1,98 @@
+{
+    "assets": {
+        "background_image": {"type": "image", "source": "assets/images/background.png"}
+    },
+    "groups": [
+        "background",
+        "hud",
+        "menu_items"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "background",
+            "position": {"x": 0, "y": 0},
+            "properties": {
+                "texture": "background_image",
+                "group": "background"
+            }
+        },
+        "title": {
+            "type": "title",
+            "position": {"x": 0.5, "y": 0.05},
+            "properties": {
+                "text": "Store",
+                "style": {
+                    "font": "48px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "money": {
+            "type": "money",
+            "position": {"x": 0.5, "y": 0.95},
+            "properties": {
+                "text": "",
+                "style": {
+                    "font": "32px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "super_blade": {
+            "type": "upgrade_item",
+            "position": {"x": 0.3, "y": 0.3},
+            "properties": {
+                "text": "Super blade",
+                "style": {"font": "32px Arial", "fill": "#FFF"},
+                "group": "menu_items",
+                "description": "A super blade that gives one\n extra point for each fruit",
+                "price": 100,
+                "upgrade_type": "super_blade",
+                "upgrade_properties": {"cut_multiplier": 2}
+            }
+        },
+        "extra_blade": {
+            "type": "upgrade_item",
+            "position": {"x": 0.3, "y": 0.5},
+            "properties": {
+                "text": "Extra blade",
+                "style": {"font": "32px Arial", "fill": "#FFF"},
+                "group": "menu_items",
+                "description": "Gets an extra blade, which\n gives one extra life",
+                "price": 50,
+                "upgrade_type": "extra_blade",
+                "upgrade_properties": {"number_of_blades": 1}
+            }
+        },
+        "upgrade_description": {
+            "type": "text",
+            "position": {"x": 0.75, "y": 0.3},
+            "properties": {
+                "text": "Description",
+                "style": {
+                    "font": "32px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "upgrade_price": {
+            "type": "text",
+            "position": {"x": 0.75, "y": 0.6},
+            "properties": {
+                "text": "Price",
+                "style": {
+                    "font": "32px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        }
+    }
+}
