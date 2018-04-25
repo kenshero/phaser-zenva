@@ -24,6 +24,7 @@ FruitNinja.LevelState.prototype.init = function (level_data) {
     this.game.physics.arcade.gravity.y = 1000;
 
     this.MINIMUM_SWIPE_LENGTH = 50
+    this.CUT_STYLE = {line_width: 5, color: 0xE82C0C, alpha: 1};
 };
 
 FruitNinja.LevelState.prototype.create = function () {
@@ -66,15 +67,15 @@ FruitNinja.LevelState.prototype.start_swipe = function (pointer) {
 
 FruitNinja.LevelState.prototype.end_swipe = function (pointer) {
     "use strict";
-    var swipe_length
+    var swipe_length, cut
 
     this.end_swipe_point = new Phaser.Point(pointer.x, pointer.y)
     swipe_length = Phaser.Point.distance(this.end_swipe_point, this.start_swipe_point)
     if(swipe_length >= this.MINIMUM_SWIPE_LENGTH) {
-        this.swipe = new Phaser.Line(this.start_swipe_point.x, this.start_swipe_point.y, this.end_swipe_point.x, this.end_swipe_point.y)
 
-        console.log(this.start_swipe_point)
-        console.log(this.end_swipe_point)
+        cut = new FruitNinja.Cut(this, "cut", {x: 0, y: 0}, {group: "cuts", start: this.start_swipe_point, end: this.end_swipe_point, duration: 0.3, style: Object.create(this.CUT_STYLE)});
+        
+        this.swipe = new Phaser.Line(this.start_swipe_point.x, this.start_swipe_point.y, this.end_swipe_point.x, this.end_swipe_point.y)
     }
 
 };
